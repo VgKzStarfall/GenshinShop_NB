@@ -1,14 +1,13 @@
 /* gis.CSS 2022 by GROUP 5 */
 html {
-  box-sizing: border-box;
-  background-image: url("/src/main/media/img/img_bg.png");
+  background-image: url(../media/img_bg.png);
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
 }
 .white {
   color: black;
-  background-image: url("/src/main/media/img/scroll.png");
+  background-image: url(../media/scroll.png);
   background-size: 40% 70px;
   background-position: 50%;
   background-repeat: no-repeat;
@@ -1223,7 +1222,7 @@ a {
 }
 .gis-left {
   float: left !important;
-  background-image: url("/src/main/media/img/bgsample.jpg");
+  background-image: url("../media/bgsample.jpg");
   background-position:center;
   font-size:210%;
   color: #fff;

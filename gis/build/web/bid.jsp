@@ -3,7 +3,7 @@
     Created on : Jun 16, 2022, 6:58:05 PM
     Author     : HP
 --%>
-
+<%@taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -62,16 +62,42 @@
   
   <!-- Top header -->
   <header class="gis-container gis-xlarge">
-    <p class="gis-left" style="margin-left:30%; color:black">AUCTION</p>
+    <p class="gis-left" style="margin-left:30%; color:white">AUCTION</p>
 
   </header>
-    
-    
-    
-          // CODE HERE //
-    
-    
-    
+  <style>
+      div.body {
+          padding-top:10%;
+          background-color:white;
+          border-radius:20px;
+          margin-left:10%;
+          margin-right:10%;
+      }
+      form.a {
+          padding-left:20%;
+          padding-bottom:20%;
+      }
+  </style>
+<body>
+    <div class="body">
+    <h1 style="padding-left:25%">Account ${pro.productID} Info</h1>
+    <h2 style="padding-left:15%">Char list:</h2>
+    <a style="padding-left:20%"></a>
+    <c:forEach items="${list}" var="p">
+        <a>${p}</a>
+    </c:forEach>
+    <h2 style="padding-left:15%">Weapon list:</h2>
+        <a style="padding-left:20%"></a>
+    <c:forEach items="${list2}" var="p">
+        <a>${p}</a>
+    </c:forEach>
+        <h3 style="padding-left:15%"> Current bid for this account: ${auc.currentPrice}</h3>
+        <form class="a" action="">
+            Bid for this account: <input type="text" name="bid"/>
+            <input type="submit" value="CONFIRM"/>
+        </form>
+  </div>
+</body>
     <script>
   function myAccFunc() {
   var x = document.getElementById("demoAcc");

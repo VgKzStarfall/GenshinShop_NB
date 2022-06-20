@@ -26,7 +26,7 @@
   
     <div class="gis-container gis-display-container gis-padding-16">
     <i onclick="gis_close()" class="fa fa-remove gis-hide-large gis-button gis-display-topright"></i>
-    <img src="\src\main\media\logo.gif" style="width:100%">
+    <img src="media/logo.gif" style="width:100%">
   </div>
 
   <div class="gis-padding-64 gis-large gis-text-white" style="font-weight:bold">
@@ -64,22 +64,42 @@
   
   <!-- Top header -->
   <header class="gis-container gis-xlarge">
-    <p class="gis-left" style="margin-left:30%; color:black">AUCTION</p>
+    <p class="gis-left" style="margin-left:40%; color:white">AUCTION</p>
 
   </header>
 
     </body>
     <style>
         table {
+            background-image:url(media/auction.png);
+            background-size:1250px 780px;
+            background-repeat:no-repeat;
+            padding-top:11%;
+            padding-bottom:10%;
+            padding-left:8%;
+            padding-right:10%;
+            color:white;
+            border: 1px white;
             border:none;
-            margin-left:18%;
+            margin-left:7%;
+            font-size:150%;
         }
         th {
             background-color:black;
             color:white;
         }
+        td {
+        }
+        .bid {
+            color:white;
+            background-color:black;
+        }
+        .bid:hover {
+            color:black;
+            background-color:white;
+        }
     </style>
-    <table type="${hidden}" border="1">
+    <table>
             <thead>
                 <tr>
                     <th>Auction No.</th>
@@ -89,7 +109,7 @@
                     <th>Current Winner</th>
                     <th>Start Date</th>
                     <th>End Date</th>
-                    <th id="bid"></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -102,9 +122,9 @@
                         <td>${auc.winner}</td>
                         <td>${auc.startdate}</td>
                         <td>${auc.enddate}</td>
-                        <td id="bid"><form action="auctionservlet" method="POST">
+                        <td><form action="auctionservlet" method="POST">
                                 <input type="hidden" value="${auc.auctionID}" name="ID"/>
-                                <input type="submit" value="BID!!!" />
+                                <input class="bid" type="submit" value="Info" />
                             </form>
                         </td>
                     </tr>

@@ -8,6 +8,14 @@
         <servlet-name>AuctionServlet</servlet-name>
         <servlet-class>Controller.AuctionServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MiddleServlet</servlet-name>
+        <servlet-class>Controller.MiddleServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SellServlet</servlet-name>
+        <servlet-class>Controller.SellServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/loginservlet</url-pattern>
@@ -15,6 +23,14 @@
     <servlet-mapping>
         <servlet-name>AuctionServlet</servlet-name>
         <url-pattern>/auctionservlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MiddleServlet</servlet-name>
+        <url-pattern>/middle</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SellServlet</servlet-name>
+        <url-pattern>/sellservlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

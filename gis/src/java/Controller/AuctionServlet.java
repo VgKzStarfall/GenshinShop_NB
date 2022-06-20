@@ -11,7 +11,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import Model.Auction;
+import Model.*;
 import java.util.ArrayList;
 
 /**
@@ -62,17 +62,24 @@ public class AuctionServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String AuctionID = request.getParameter("ID");
+        String AucID = request.getParameter("ID");
         Auction auc= new Auction();
-        Auction a1= new Auction();
         ArrayList<Auction> list= auc.getListAuction();
         for (Auction a:list) {
-            if (a.AuctionID.equals(AuctionID)) a1=a;
-            break;
+            if (a.AuctionID.equals(AucID)) {auc=a;break;}
+            
         }
-        request.getServletContext().setAttribute("current",a1.CurrentPrice);
-        request.getServletContext().setAttribute("ID",a1.AuctionID);
-        request.getServletContext().setAttribute("enddate",a1.enddate);
+        Product pro=new Product();
+        ArrayList<Product> list2 = pro.getListProduct();
+        for (Product p:list2) {
+            if (p.getProductID().equals(auc.ProductID)) {pro=p;break;}
+        }
+        String[] charList= pro.charlist.split(",");
+        String[] weapList= pro.weaponlist.split(",");
+        request.getServletContext().setAttribute("list",charList);
+        request.getServletContext().setAttribute("list2",weapList);
+        request.getServletContext().setAttribute("pro",pro);
+        request.getServletContext().setAttribute("auc",auc);
         request.getRequestDispatcher("bid.jsp").forward(request,response);
     }
 
