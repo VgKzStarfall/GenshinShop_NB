@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <title>Auction</title>
+        <title>Sell Account</title>
         <style>
             .gis-sidebar a {font-family: "Roboto", sans-serif}
             body,h1,h2,h3,h4,h5,h6,.gis-wide {font-family: "Montserrat", sans-serif;}
@@ -25,7 +25,7 @@
   
     <div class="gis-container gis-display-container gis-padding-16">
     <i onclick="gis_close()" class="fa fa-remove gis-hide-large gis-button gis-display-topright"></i>
-    <img src="\src\main\media\logo.gif" style="width:100%">
+    <img src="media\logo.gif" style="width:100%">
   </div>
 
   <div class="gis-padding-64 gis-large gis-text-white" style="font-weight:bold">
@@ -38,9 +38,12 @@
       <a href="#" class="gis-bar-item gis-button">VIP ACCOUNTS</a>
       <a href="#" class="gis-bar-item gis-button">RANDOM ACCOUNTS</a>
     </div>
-
-        <a class="gis-bar-item gis-button" style="color:black; background-color:white">SELL ACCOUNT</a>
-        <a class="gis-bar-item gis-button" >AUCTION</a>
+      <form action="sellservlet" method="GET">
+        <input type="submit" class="gis-bar-item gis-button" style="color:black; background-color:white" value="SELL ACCOUNT">
+    </form>
+    <form action="auctionservlet" method="GET">
+        <input type="submit" class="gis-bar-item gis-button" value="AUCTION">
+    </form>
     </div>
 
         <a href="#footer" class="gis-bar-item gis-button gis-padding">Contact</a> 
@@ -83,13 +86,25 @@
           color:white;
           background-color:black;
       }
+      .input {
+          color:white;
+          background-color:black;
+      }
+      .input:hover {
+          color:black;
+          background-color:lightblue;
+      }
   </style>
   <body>
       <div class="body">
+          <form action="middle" method="GET">
+              <input class="input" style="position:absolute;margin-left:20%;" type="${input}" value="Input Information"/>
+          </form>
           <form action="sellservlet" method="POST">
-              Enter Character list:<input style="width:500px;" type="text" name="charlist"><BR>
-<!--              Enter Weapon list:   <input style="margin-left:12px;width:500px;" type="text" name="weaplist"><BR>-->
-              Enter Primogems:     <input style="margin-left:13px;width:500px;" type="text" name="primos"><BR>
+              Enter Character list: <a ${hidden} style="color:red;">Information inputted.</a><BR><BR>
+              <input type="hidden" name="charlist" value="${list}"/>
+        <!--              Enter Weapon list:   <input style="margin-left:12px;width:500px;" type="text" name="weaplist"><BR>-->
+              Enter Primogems:     <input style="margin-left:13px;width:500px;" type="text" name="primos" value="0"><BR>
               <input class="eval" style="margin-left:32%;margin-top:20%;" type="submit" value="EVALUATE"/>
           </form>
       </div>

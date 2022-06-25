@@ -1,8 +1,10 @@
 <%-- 
-    Document   : bid
-    Created on : Jun 16, 2022, 6:58:05 PM
+    Document   : InputInfo
+    Created on : Jun 23, 2022, 5:03:07 PM
     Author     : HP
 --%>
+<%@page import="Model.*" %>
+<%@page import="java.util.ArrayList" %>
 <%@taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -14,7 +16,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <title>Bidding</title>
+        <title>input Information</title>
         <style>
             .gis-sidebar a {font-family: "Roboto", sans-serif}
             body,h1,h2,h3,h4,h5,h6,.gis-wide {font-family: "Montserrat", sans-serif;}
@@ -40,10 +42,10 @@
     </div>
 
         <form action="sellservlet" method="GET">
-        <input type="submit" class="gis-bar-item gis-button" " value="SELL ACCOUNT">
+        <input type="submit" class="gis-bar-item gis-button" value="SELL ACCOUNT">
     </form>
     <form action="auctionservlet" method="GET">
-        <input type="submit" class="gis-bar-item gis-button" style="color:black; background-color:white" value="AUCTION">
+        <input type="submit" class="gis-bar-item gis-button" value="AUCTION">
     </form>
     </div>
 
@@ -66,43 +68,82 @@
   
   <!-- Top header -->
   <header class="gis-container gis-xlarge">
-    <p class="gis-left" style="margin-left:30%; color:white">AUCTION</p>
+    <p class="gis-left" style="margin-left:30%; color:black">AUCTION</p>
 
   </header>
   <style>
-      div.body {
-          padding-top:10%;
+      div.input {
           background-color:white;
-          border-radius:20px;
-          margin-left:10%;
-          margin-right:10%;
+          border-radius:50px;
+          margin-left:3%;
+          padding-left:5%;
+          margin-right:3%;
+          padding-top:2%;
       }
-      form.a {
-          padding-left:20%;
-          padding-bottom:20%;
+      img.char {
+          margin: 2% 1%     9% 1%;
+      }
+      input.done {
+          margin-bottom:7%;
+          margin-top:5%;
+          margin-left:40%;
+          padding: 10px 10px 10px 10px;
+          background-color:black;
+          color:white;
+      }
+      input.done:hover {
+          background-color:grey;
+          color:black;
       }
   </style>
-<body>
-    <div class="body">
-    <h1 style="padding-left:25%">Account ${pro.productID} Info</h1>
-    <h2 style="padding-left:15%">Char list:</h2>
-    <a style="padding-left:20%"></a>
-    <c:forEach items="${list}" var="p">
-        <a>${p}</a>
-    </c:forEach>
-    <h2 style="padding-left:15%">Weapon list:</h2>
-        <a style="padding-left:20%"></a>
-    <c:forEach items="${list2}" var="p">
-        <a>${p}</a>
-    </c:forEach>
-        <h3 style="padding-left:15%"> Current bid for this account: ${auc.currentPrice}</h3>
-        <form class="a" action="startauction" method="POST">
-            <input type="hidden" value="${pro.productID}" name="proID"/>
-            Bid for this account: <input type="text" value="0" name="bid"/>
-            <input type="submit" value="CONFIRM"/>
-        </form>
-    </div>
-</body>
+  <body>
+      <div class="input">
+          <form action="middle" method="POST">
+      <% 
+        ArrayList<CharValue> cv = (ArrayList<CharValue>) request.getAttribute("list");
+        int n = cv.size();
+        int m=(int)n/5 + 1;
+        for (int i=0;i<m-1;i++) {
+            for (int j=0;j<5;j++) {
+                String Cname= cv.get(j+i*5).CodeName;
+                String s= "media/"+Cname+".jpg";
+                String Fname= cv.get(j+i*5).FullName;
+                String h1=Cname+"1";
+      %>
+            <label style="position:absolute;padding-left:4%;padding-top:408px;"> <%=Fname%> </label>
+            <img style="" class="char" src="<%=s%>" width="15%"/>
+            <input style="position:relative; left:-180px;top:180px;" type="checkbox" name="<%=Cname%>" value="<%=Cname%>" />
+            <a  style="position:absolute;margin-left:-12%;margin-top:460px;"> Constellation: </a>
+            <select style="position:absolute;margin-left:-5%;margin-top:458px;width:50px;" type="text" name="<%=h1%>">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+            </select>
+      <%
+        }
+      %> <BR> <%
+       }
+        for (int i=45;i<=47;i++) {
+            String Cname= cv.get(i).CodeName;
+            String s= "media/"+Cname+".jpg";
+            String Fname= cv.get(i).FullName;  
+            String h1=Cname+"1";
+        %>
+            <label style="position:absolute;padding-left:4%;padding-top:408px;"> <%=Fname%> </label>
+            <img style="" class="char" src="<%=s%>" width="15%"/>
+            <input style="position:relative; left:-180px;top:180px;" type="checkbox" name="<%=Cname%>" value="<%=Fname%>" />
+            <a  style="position:absolute;margin-left:-12%;margin-top:460px;"> Constellation: </a>
+            <input style="position:absolute;margin-left:-5%;margin-top:455px;width:30px;" type="text" value="" name="<%=h1%>" />
+         <% } %>
+         <BR>
+            <input onclick="confirm('Confirm!')" class="done" type="submit" value="Done inputting info"/>
+          </form>
+      </div>
+  </body>
     <script>
   function myAccFunc() {
   var x = document.getElementById("demoAcc");

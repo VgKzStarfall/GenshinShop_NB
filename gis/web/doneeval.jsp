@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <title>Auction</title>
+        <title>Evaluation Done!</title>
         <style>
             .gis-sidebar a {font-family: "Roboto", sans-serif}
             body,h1,h2,h3,h4,h5,h6,.gis-wide {font-family: "Montserrat", sans-serif;}
@@ -39,8 +39,12 @@
       <a href="#" class="gis-bar-item gis-button">RANDOM ACCOUNTS</a>
     </div>
 
-        <a href="#" class="gis-bar-item gis-button">SELL ACCOUNT</a>
-        <a class="gis-bar-item gis-button" style="color:black; background-color:white">AUCTION</a>
+        <form action="sellservlet" method="GET">
+        <input type="submit" class="gis-bar-item gis-button" style="color:black; background-color:white" value="SELL ACCOUNT">
+    </form>
+    <form action="auctionservlet" method="GET">
+        <input type="submit" class="gis-bar-item gis-button" value="AUCTION">
+    </form>
     </div>
 
         <a href="#footer" class="gis-bar-item gis-button gis-padding">Contact</a> 
@@ -101,7 +105,16 @@
         </table>
     <p style="color:black">Account value after auto-evaluation: ${eval}$</p>
   </div>  
-    
+  <form action="">
+      <input type="hidden" value="${eval}" name="value"/>
+      <input style="position:absolute;margin-left:25%;margin-top:-5%;padding:10px;" type="submit" value="Sell this Account"/>
+  </form>
+  <form action="startauction" method="GET">
+      <input type="hidden" value="${primo}" name="primo"/>
+      <input type="hidden" value="${charlist}" name="list"/>
+      <input type="hidden" value="${eval}" name="value"/>
+      <input style="position:absolute;margin-left:45%;margin-top:-5%;padding:10px;" onclick="confirm('Confirm!')" type="submit" value="Start an Auction on this account"/>
+  </form>
   </body> 
     <script>
   function myAccFunc() {

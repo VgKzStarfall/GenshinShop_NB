@@ -39,9 +39,12 @@
       <a href="#" class="gis-bar-item gis-button">VIP ACCOUNTS</a>
       <a href="#" class="gis-bar-item gis-button">RANDOM ACCOUNTS</a>
     </div>
-
-        <a href="#" class="gis-bar-item gis-button">SELL ACCOUNT</a>
-        <a class="gis-bar-item gis-button" style="color:black; background-color:white">AUCTION</a>
+ <form action="sellservlet" method="GET">
+        <input type="submit" class="gis-bar-item gis-button" " value="SELL ACCOUNT">
+    </form>
+    <form action="auctionservlet" method="GET">
+        <input type="submit" class="gis-bar-item gis-button" style="color:black; background-color:white" value="AUCTION">
+    </form>
     </div>
 
         <a href="#footer" class="gis-bar-item gis-button gis-padding">Contact</a> 
