@@ -16,6 +16,10 @@
         <servlet-name>SellServlet</servlet-name>
         <servlet-class>Controller.SellServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>StartAuctionServlet</servlet-name>
+        <servlet-class>Controller.StartAuctionServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/loginservlet</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>SellServlet</servlet-name>
         <url-pattern>/sellservlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StartAuctionServlet</servlet-name>
+        <url-pattern>/startauction</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
