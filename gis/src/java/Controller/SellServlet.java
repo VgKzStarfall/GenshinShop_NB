@@ -45,6 +45,9 @@ public class SellServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.getServletContext().setAttribute("input","submit");
+        request.getServletContext().setAttribute("back","hidden");
+        request.getServletContext().setAttribute("hidden","hidden");
         request.getRequestDispatcher("evaluate.jsp").forward(request, response);
     }
 
@@ -59,7 +62,7 @@ public class SellServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String charlist= request.getParameter("charlist");
+        String charlist= (request.getParameter("charlist")).toLowerCase();
         int primos=Integer.parseInt(request.getParameter("primos"));
         String[] chars=charlist.replaceAll(" ","").split(",");
         int n=chars.length;
@@ -110,6 +113,7 @@ public class SellServlet extends HttpServlet {
             ccl.add(new CharCons(name[j],Integer.parseInt(number[j])));
         }
         eval = Math.round(eval);
+        request.getServletContext().setAttribute("charlist",charlist);
         request.getServletContext().setAttribute("list",ccl);
         request.getServletContext().setAttribute("primo",primos);
         request.getServletContext().setAttribute("eval",eval);

@@ -19,7 +19,7 @@ public class Database {
     private final String serverName="localhost";
     private final String portNumber="1433";
     private final String dbName="SWP";
-    private final String instance="LAPTOP-QQNU666L";
+    private final String instance="LAPTOP-OQNU666L";
     private final String username="username";
     private final String password="giahuy1612";
 }

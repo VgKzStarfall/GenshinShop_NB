@@ -11,6 +11,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import Model.*;
+import java.util.ArrayList;
 
 /**
  *
@@ -43,7 +45,10 @@ public class MiddleServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        CharValue cv=new CharValue();
+        ArrayList<CharValue> charlist = cv.getListCharValue();
+        request.setAttribute("list", charlist);
+        request.getRequestDispatcher("InputInfo.jsp").forward(request,response);
     }
 
     /**
@@ -57,7 +62,27 @@ public class MiddleServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        CharValue cv=new CharValue();
+        ArrayList<CharValue> charlist=cv.getListCharValue();
+        String list="";
+        String[] namelist= new String[charlist.size()];
+        String[] conslist= new String[charlist.size()];
+        int i=0;
+        for (CharValue cv2:charlist) {
+            namelist[i]=request.getParameter(cv2.CodeName);
+            conslist[i]=request.getParameter(cv2.CodeName+"1");
+            if (conslist[i]=="" && namelist[i]!="") conslist[i]="0";
+            if (namelist[i]!=null) {
+                list+=namelist[i]+conslist[i]+",";
+            }
+            i++;
+        }
+        list=list.substring(0,list.length()-1).toLowerCase();
+        request.getServletContext().setAttribute("input","hidden");
+        request.getServletContext().setAttribute("back","submit");
+        request.getServletContext().setAttribute("hidden","");
+        request.getServletContext().setAttribute("list",list);
+        request.getRequestDispatcher("evaluate.jsp").forward(request,response);
     }
 
     /**

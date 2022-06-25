@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Objects;
 import Database.Database;
+import java.sql.Statement;
+import java.time.LocalDate;
 
 public class Auction {
     public String AuctionID;
@@ -74,7 +76,7 @@ public class Auction {
     }
 
     public String getStartdate() {
-        return startdate;
+        return LocalDate.now().toString();
     }
 
     public void setStartdate(String startdate) {
@@ -116,5 +118,36 @@ public class Auction {
             System.out.println("Class Not Found");
         }
         return null;
+    }
+    public int startAuction(Auction auc) {
+        Connection conn=null;
+        try {
+            String query = "Insert into dbo.Auction values ('"+auc.AuctionID+
+                    "','"+auc.ProductID+"',"+Integer.toString(auc.initPrice)
+                    +","+Integer.toString(auc.CurrentPrice)
+                    +",'"+auc.Winner+"','"+auc.startdate+"')";
+            conn = new Database().getConnection();
+            Statement stmt = conn.createStatement();
+            return stmt.executeUpdate(query);
+        } catch (SQLException e) {
+            System.out.println("SQL Connection Error");
+        } catch (ClassNotFoundException e){
+            System.out.println("Class Not Found");
+        }
+        return -1;
+    }
+    public int bidForAuction(Auction auc,int money) {
+        Connection conn=null;
+        try {
+            String query = "update dbo.Auction set CurrentPrice="+Integer.toString(money)+" where AuctionID='"+auc.AuctionID+"'";
+            conn = new Database().getConnection();
+            Statement stmt = conn.createStatement();
+            return stmt.executeUpdate(query);
+        } catch (SQLException e) {
+            System.out.println("SQL Connection Error");
+        } catch (ClassNotFoundException e){
+            System.out.println("Class Not Found");
+        }
+        return -1;
     }
 }

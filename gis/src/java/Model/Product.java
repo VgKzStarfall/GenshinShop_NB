@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class Product {
@@ -108,5 +109,21 @@ public class Product {
             System.out.println("Class Not Found");
         }
         return null;
+    }
+    
+    public int addProduct(Product p) {
+        Connection conn=null;
+        try {
+            String query= "Insert into dbo.Product values ('"+p.ProductID+"','"+
+                    p.charlist+"','"+p.weaponlist+"',"+Integer.toString(p.primogems)+",'"
+                    +p.seller+"','"+p.account_info+"',"+Integer.toString(p.price)+")";
+            conn = new Database().getConnection();
+            Statement stmt = conn.createStatement();
+            return stmt.executeUpdate(query);
+        } catch (SQLException e) {
+            return e.getErrorCode();
+        } catch (ClassNotFoundException e) {
+            return -1;
+        }
     }
 }
