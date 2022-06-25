@@ -12,6 +12,7 @@
             <file>file:/C:/Users/HP/OneDrive/Documents/NetBeansProjects/gis/web/auction.jsp</file>
             <file>file:/C:/Users/HP/OneDrive/Documents/NetBeansProjects/gis/web/doneeval.jsp</file>
             <file>file:/C:/Users/HP/OneDrive/Documents/NetBeansProjects/gis/src/java/Model/Account.java</file>
+            <file>file:/C:/Users/HP/OneDrive/Documents/NetBeansProjects/gis/src/java/Controller/StartAuctionServlet.java</file>
             <file>file:/C:/Users/HP/OneDrive/Documents/NetBeansProjects/gis/src/java/Model/Product.java</file>
             <file>file:/C:/Users/HP/OneDrive/Documents/NetBeansProjects/gis/src/java/Controller/SellServlet.java</file>
             <file>file:/C:/Users/HP/OneDrive/Documents/NetBeansProjects/gis/src/java/Model/WeaponValue.java</file>
@@ -21,6 +22,8 @@
             <file>file:/C:/Users/HP/OneDrive/Documents/NetBeansProjects/gis/web/bid.jsp</file>
             <file>file:/C:/Users/HP/OneDrive/Documents/NetBeansProjects/gis/web/evaluate.jsp</file>
             <file>file:/C:/Users/HP/OneDrive/Documents/NetBeansProjects/gis/web/style/style.css</file>
+            <file>file:/C:/Users/HP/OneDrive/Documents/NetBeansProjects/gis/web/InputInfo.jsp</file>
+            <file>file:/C:/Users/HP/OneDrive/Documents/NetBeansProjects/gis/src/java/Database/Database.java</file>
         </group>
     </open-files>
 </project-private>
