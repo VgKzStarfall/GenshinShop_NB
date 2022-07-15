@@ -5,12 +5,15 @@
  */
 package Controller;
 
+import Model.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -58,6 +61,17 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         String username= request.getParameter("uname");
         String password = request.getParameter("psw");
+        
+        Account account = new Account();
+        
+        Account acc = account.login(username, password);
+        if(acc == null) {
+            response.sendRedirect("index.html");
+        } else {
+            HttpSession session = request.getSession();
+            session.setAttribute("acc", acc);
+            request.getRequestDispatcher("home.jsp").forward(request, response);
+        }
     }
 
     /**

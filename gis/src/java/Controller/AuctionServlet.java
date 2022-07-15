@@ -74,8 +74,18 @@ public class AuctionServlet extends HttpServlet {
         for (Product p:list2) {
             if (p.getProductID().equals(auc.ProductID)) {pro=p;break;}
         }
+        String acc=request.getParameter("acc");
+        Wallet wal = new Wallet();
+        ArrayList<Wallet> list3= wal.getListWallet();
+        for (Wallet w:list3) {
+            if (w.getUsername().equals(acc)) {
+                wal=w;
+                break;
+            }
+        }
         String[] charList= pro.charlist.split(",");
         String[] weapList= pro.weaponlist.split(",");
+        request.getServletContext().setAttribute("wal", wal);
         request.getServletContext().setAttribute("list",charList);
         request.getServletContext().setAttribute("list2",weapList);
         request.getServletContext().setAttribute("pro",pro);

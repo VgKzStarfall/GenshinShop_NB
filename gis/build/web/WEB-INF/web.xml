@@ -20,6 +20,26 @@
         <servlet-name>StartAuctionServlet</servlet-name>
         <servlet-class>Controller.StartAuctionServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>BuyServlet</servlet-name>
+        <servlet-class>Controller.BuyServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>Controller.LogoutServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>Controller.RegisterServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PaymentServlet</servlet-name>
+        <servlet-class>Controller.PaymentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SellServlet2</servlet-name>
+        <servlet-class>Controller.SellServlet2</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/loginservlet</url-pattern>
@@ -40,9 +60,48 @@
         <servlet-name>StartAuctionServlet</servlet-name>
         <url-pattern>/startauction</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BuyServlet</servlet-name>
+        <url-pattern>/buy</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>RechargeServlet</servlet-name>
+        <servlet-class>Controller.RechargeServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TransactionServlet</servlet-name>
+        <servlet-class>Controller.TransactionServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RechargeServlet</servlet-name>
+        <url-pattern>/rechargeservlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TransactionServlet</servlet-name>
+        <url-pattern>/transactionservlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PaymentServlet</servlet-name>
+        <url-pattern>/payment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SellServlet2</servlet-name>
+        <url-pattern>/sell2</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
 </web-app>

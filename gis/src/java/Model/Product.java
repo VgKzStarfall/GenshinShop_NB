@@ -126,4 +126,47 @@ public class Product {
             return -1;
         }
     }
+    public int getTotalProduct() {
+         Connection conn=null;
+        PreparedStatement ps=null;
+        ResultSet rs=null;
+        try {
+            String query = " select count(*) from Product";
+            conn = new Database().getConnection();
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();      
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        
+        } catch (SQLException e) {
+            System.out.println("SQL Connection Error");
+        } catch (ClassNotFoundException e){
+            System.out.println("Class Not Found");
+        }
+        return 0;
+    }
+     public ArrayList<Product> paging(int index) {
+        Connection conn=null;
+        PreparedStatement ps=null;
+        ResultSet rs=null;
+        try {
+            String query = "select * from dbo.Product order by price OFFSET "+Integer.toString((index-1)*4)+" rows fetch next 4 rows only;";
+            conn = new Database().getConnection();
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+           // ps.setInt(1, (index-1)*4);
+            ArrayList<Product> list = new ArrayList<>();
+            while (rs.next()) {
+            Product pro= new Product(rs.getString(1),rs.getString(2),rs.getString(3),rs.getInt(4),rs.getString(5),rs.getString(6),rs.getInt(7));
+            list.add(pro);
+            }
+            return list;
+        } catch (SQLException e) {
+            System.out.println("SQL Connection Error");
+        } catch (ClassNotFoundException e){
+            System.out.println("Class Not Found");
+        }
+        return null;
+    }
 }

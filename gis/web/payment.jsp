@@ -1,9 +1,10 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%-- 
-    Document   : doneeval
-    Created on : Jun 16, 2022, 10:08:34 PM
+    Document   : evaluate
+    Created on : Jun 16, 2022, 9:30:29 PM
     Author     : HP
 --%>
-<%@taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -14,7 +15,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <title>Evaluation Done!</title>
+        <title>Sell Account</title>
         <style>
             .gis-sidebar a {font-family: "Roboto", sans-serif}
             body,h1,h2,h3,h4,h5,h6,.gis-wide {font-family: "Montserrat", sans-serif;}
@@ -25,7 +26,7 @@
   
     <div class="gis-container gis-display-container gis-padding-16">
     <i onclick="gis_close()" class="fa fa-remove gis-hide-large gis-button gis-display-topright"></i>
-  <img src="media\logo.gif" style="width:100%" onclick="window.location.href='home.jsp'">
+    <img src="media\logo.gif" style="width:100%" onclick="window.location.href='home.jsp'">
   </div>
 
   <div class="gis-padding-64 gis-large gis-text-white" style="font-weight:bold">
@@ -36,10 +37,9 @@
     <div id="demoAcc" class="gis-bar-block gis-hide gis-padding-large gis-medium">
       <a href="buy?vip=0" class="gis-bar-item gis-button">SUGGESTED ACCOUNTS</a>
       <a href="buy?vip=1" class="gis-bar-item gis-button">VIP ACCOUNTS</a>
-     
+      
     </div>
-
-        <form action="sellservlet" method="GET">
+      <form action="sellservlet" method="GET">
         <input type="hidden" value="${sessionScope.acc.username}" name="acc"/>
         <input type="submit" class="gis-bar-item gis-button" value="SELL ACCOUNT">
     </form>
@@ -72,60 +72,50 @@
   
   <!-- Top header -->
   <header class="gis-container gis-xlarge">
-    <p class="gis-left" style="margin-left:30%; color:white">EVALUATION</p>
+    <p class="gis-left" style="margin-left:27%; color:white">ACCOUNT VALUATION</p>
 
   </header>
-    <style>
+  <style>
       div.body {
-          border-radius:20px;
           background-color:white;
+          border-radius:20px;
           font-size:200%;
           margin-left:10%;
           margin-right:10%;
           padding-left:10%;
-          padding-top:5%;
+          padding-top:10%;
           padding-bottom:10%;
       }
-      .eval:hover {
+      .input {
           color:white;
           background-color:black;
       }
+      .input:hover {
+          color:black;
+          background-color:lightblue;
+      }
   </style>
-  <body>    
-  <div class="body">
-      <p>Primogems: ${primo}</p>
-      <table class="body" border="1">
-          <thead> <tr>
-          <td>Character List:</td>
-          <td>Constellation:</td>
-          </tr>
-          </thead>
-          <tbody>
-                <c:forEach items="${list}" var="p">
-                <tr>
-                    <td>${p.charname}</td>
-                    <td>${p.cons}</td>
-                </tr>
-                </c:forEach>
-          </tbody>
-        </table>
-    <p style="color:black">Account value after auto-evaluation: ${eval}$</p>
-  </div>  
-  <form action="sell2" method="GET">
-      <input type="hidden" value="${primo}" name="primo"/>
-      <input type="hidden" value="${charlist}" name="list"/>
-      <input type="hidden" value="${eval}" name="value"/>
-      <input type="hidden" value="${sessionScope.acc.username}" name="acc"/>
-      <input style="position:absolute;margin-left:25%;margin-top:-5%;padding:10px;" onclick="confirm('Confirm!')" type="submit" value="Sell this Account"/>
-  </form>
-  <form action="startauction" method="GET">
-      <input type="hidden" value="${primo}" name="primo"/>
-      <input type="hidden" value="${charlist}" name="list"/>
-      <input type="hidden" value="${eval}" name="value"/>
-      <input type="hidden" value="${sessionScope.acc.username}" name="acc"/>
-      <input style="position:absolute;margin-left:45%;margin-top:-5%;padding:10px;" onclick="confirm('Confirm!')" type="submit" value="Start an Auction on this account"/>
-  </form>
-  </body> 
+  <body>
+      <c:if test="${done==1}">
+     
+      <div class="body">
+          <h3> Done buying ${pro.productID} </h3>
+          <h3> Username: ${username} </h3>
+          <h3> Password: ${password} </h3>
+          <h3> Wallet Balance Updated </h3>
+      </div>
+       </c:if>
+      <c:if test="${done==0}">
+          <div class="body">
+              <h3> You don't have enough money, please recharge </h3> 
+              <h3> more money in wallet </h3>
+              <form action="walletservlet" method="GET">
+                <input type="hidden" value="${sessionScope.acc.username}" name="acc"/>
+                <input type="submit" value="WALLET">
+            </form>
+          </div>
+          </c:if>
+  </body>
     <script>
   function myAccFunc() {
   var x = document.getElementById("demoAcc");

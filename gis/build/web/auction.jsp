@@ -26,7 +26,7 @@
   
     <div class="gis-container gis-display-container gis-padding-16">
     <i onclick="gis_close()" class="fa fa-remove gis-hide-large gis-button gis-display-topright"></i>
-    <img src="media/logo.gif" style="width:100%">
+    <img src="media\logo.gif" style="width:100%" onclick="window.location.href='home.jsp'">
   </div>
 
   <div class="gis-padding-64 gis-large gis-text-white" style="font-weight:bold">
@@ -35,15 +35,20 @@
       BUY ACCOUNT <i class="fa fa-caret-down"></i>
     </a>
     <div id="demoAcc" class="gis-bar-block gis-hide gis-padding-large gis-medium">
-      <a href="#" class="gis-bar-item gis-button">SUGGESTED ACCOUNTS</a>
-      <a href="#" class="gis-bar-item gis-button">VIP ACCOUNTS</a>
-      <a href="#" class="gis-bar-item gis-button">RANDOM ACCOUNTS</a>
+     <a href="buy?vip=0" class="gis-bar-item gis-button">SUGGESTED ACCOUNTS</a>
+      <a href="buy?vip=1" class="gis-bar-item gis-button">VIP ACCOUNTS</a>
+     
     </div>
  <form action="sellservlet" method="GET">
-        <input type="submit" class="gis-bar-item gis-button" " value="SELL ACCOUNT">
+        <input type="hidden" value="${sessionScope.acc.username}" name="acc"/>
+        <input type="submit" class="gis-bar-item gis-button" value="SELL ACCOUNT">
     </form>
     <form action="auctionservlet" method="GET">
         <input type="submit" class="gis-bar-item gis-button" style="color:black; background-color:white" value="AUCTION">
+    </form>
+      <form action="walletservlet" method="GET">
+          <input type="hidden" value="${sessionScope.acc.username}" name="acc"/>
+        <input type="submit" class="gis-bar-item gis-button" value="WALLET">
     </form>
     </div>
 
@@ -126,6 +131,7 @@
                         <td>${auc.startdate}</td>
                         <td>${auc.enddate}</td>
                         <td><form action="auctionservlet" method="POST">
+                                <input type="hidden" value="${sessionScope.acc.username}" name="acc"/>
                                 <input type="hidden" value="${auc.auctionID}" name="ID"/>
                                 <input class="bid" type="submit" value="Info" />
                             </form>
@@ -134,7 +140,6 @@
                 </c:forEach>
             </tbody>
         </table>
-        
     <script>
 // Accordion 
 function myAccFunc() {

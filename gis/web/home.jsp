@@ -1,6 +1,14 @@
+<%-- 
+    Document   : home
+    Created on : Jul 11, 2022, 9:20:04 AM
+    Author     : khang
+--%>
+
+<%@page import="Model.*"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<head>
+    <head>
 <title>Genshin Impact Shop</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -131,12 +139,12 @@ body,h1,h2,h3,h4,h5,h6,.gis-wide {font-family: "Montserrat", sans-serif;}
   
     <div class="gis-container gis-display-container gis-padding-16">
     <i onclick="gis_close()" class="fa fa-remove gis-hide-large gis-button gis-display-topright"></i>
-    <img src="media\logo.gif" style="width:100%" >
+    <img src="media\logo.gif" style="width:100%" onclick="window.location.href='home.jsp'">
   </div>
 
   <div class="gis-padding-64 gis-large gis-text-white" style="font-weight:bold">
 
-    <a onclick="myAccFunc()" href="javascript:void(0)" class="gis-button gis-block gis-black gis-left-align" id="myBtn">
+      <a onclick="myAccFunc()" href="javascript:void(0)" class="gis-button gis-block gis-black gis-left-align" id="myBtn">
       BUY ACCOUNT <i class="fa fa-caret-down"></i>
     </a>
     <div id="demoAcc" class="gis-bar-block gis-hide gis-padding-large gis-medium">
@@ -145,17 +153,18 @@ body,h1,h2,h3,h4,h5,h6,.gis-wide {font-family: "Montserrat", sans-serif;}
      
     </div>
 
-    
-     <form action="sellservlet" method="GET">
-        <input onclick="logged()" type="submit" class="gis-bar-item gis-button" value="SELL ACCOUNT">
+    <form action="sellservlet" method="GET">
+        <input type="hidden" value="${sessionScope.acc.username}" name="acc"/>
+        <input type="submit" class="gis-bar-item gis-button" value="SELL ACCOUNT">
     </form>
     <form action="auctionservlet" method="GET">
-        <input onclick="logged()" type="submit" class="gis-bar-item gis-button" value="AUCTION">
+        <input type="hidden" value="${sessionScope.acc.username}" name="acc"/>
+        <input type="submit" class="gis-bar-item gis-button" value="AUCTION">
     </form>
-    <form action="walletservlet" method="GET">
-        <input onclick="logged()" type="submit" class="gis-bar-item gis-button" value="WALLET">
+      <form action="walletservlet" method="GET">
+          <input type="hidden" value="${sessionScope.acc.username}" name="acc"/>
+        <input type="submit" class="gis-bar-item gis-button" value="WALLET">
     </form>
-    
   </div>
 
   <a href="#footer" class="gis-bar-item gis-button gis-padding">Contact</a> 
@@ -180,80 +189,22 @@ body,h1,h2,h3,h4,h5,h6,.gis-wide {font-family: "Montserrat", sans-serif;}
   
   <!-- Top header -->
   <header class="gis-container gis-xlarge">
-      <button onclick="document.getElementById('id01').style.display='block'" class="login">LOGIN</button>
+      <button class="login" style="font-size: 70%">${sessionScope.acc.username}</button>
 <div id="id01" class="modal">  
-  <form class="modal-content animate" action="loginservlet" method="post">
-    <div class="imgcontainer">
-        <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-    </div>
-
-    <div class="container">
-      <label for="uname"><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" name="uname" id="name" required value="">
-
-      <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" id="password" required value="">
-        
-      <button type="submit">Login</button>
-      <label>
-        <input type="checkbox" checked="checked" name="remember"> Remember me
-      </label>
-    </div>
-
-    <div class="container2" style="background-color:#f1f1f1">
-      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-      <span class="psw">Forgot <a href="#">password?</a></span>
-    </div>
-  </form>
+ 
 </div>
 
 <script>
-    function logged() {
-        window.alert("You have to login to use this feature");
-        event.preventDefault();
+var modal = document.getElementById('id01');
+
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
     }
-    function checkpass(cpass) {
-        var pass = document.getElementById("pass").value;
-       
-        
-        if(pass !== cpass) {
-          document.getElementById("check").style.display = "block";        
-        } else {
-            document.getElementById("check").style.display = "none";
-        }
-        
-    }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+}
 </script>
-    <button class="register" onclick="document.getElementById('id02').style.display='block'">REGISTER</button>
-    <div id="id02" class="modal">  
-  <form class="modal-content animate" action="register" method="post">
-    <div class="imgcontainer">
-        <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
-    </div>
-
-    <div class="container">
-      <label for="user"><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" name="uname" id="user" required value="">
-
-      <label for="pass"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" id="pass" required value="">
-      
-      <label for="confirmpass"><b>Confirm Password</b></label>
-      <input type="password" placeholder="Enter Password" name="cpsw" id="confirmpass" required value="" onchange="checkpass(this.value)">
-        
-      <button type="submit" >Register</button>
-      <label>
-          <span class="text-danger" id="check" style="display: none;color: red; float: right">Password does not match!</span>
-      </label>
-    </div>
-
-    <div class="container2" style="background-color:#f1f1f1">
-      <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
-      
-    </div>
-  </form>
-</div>
-    <p class="gis-left">ıllıllı 𝔊𝔢𝔫𝔰𝔥𝔦𝔫 ℑ𝔪𝔭𝔞𝔠𝔱 𝔖𝔥𝔬𝔭 ıllıllı</p>
+    <button class="register" onclick="window.location.href='logout';">Logout</button>
+    <p class="gis-left">?ll?ll? ??????? ?????? ???? ?ll?ll?</p>
 
   </header>
 
@@ -483,7 +434,6 @@ function gis_close() {
   document.getElementById("mySidebar").style.display = "none";
   document.getElementById("myOverlay").style.display = "none";
 }
-
 </script>
 
 </body>

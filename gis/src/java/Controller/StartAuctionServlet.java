@@ -48,15 +48,19 @@ public class StartAuctionServlet extends HttpServlet {
             throws ServletException, IOException {
         String cc= request.getParameter("list");
         int primo = Integer.parseInt(request.getParameter("primo"));
+        
         int price= (int)Double.parseDouble(request.getParameter("value"));
+        String acc=request.getParameter("acc");
         Auction auc2= new Auction();
         ArrayList<Auction> auclist = auc2.getListAuction();
         auc2=auclist.get(auclist.size()-1);
-        Auction auc=new Auction("auc100","pro100",price,price,"Lothy",auc2.getStartdate());
-        Product p = new Product("pro100",cc,"N/A",primo,"Lothy","acc",price);
+        Auction auc=new Auction("auc100","pro100",price,price,acc,auc2.getStartdate());
+        Product p = new Product("pro100",cc,"N/A",primo,acc,"acc",price);
         int k=p.addProduct(p);
         int i=auc.startAuction(auc);
-        request.getRequestDispatcher("index.html").forward(request,response);
+        auclist = auc2.getListAuction();
+        request.getServletContext().setAttribute("list",auclist);
+        request.getRequestDispatcher("auction.jsp").forward(request,response);
     }
 
     /** 
@@ -79,7 +83,9 @@ public class StartAuctionServlet extends HttpServlet {
             break;}
         }
         int i=auc.bidForAuction(auc, num);
-        request.getRequestDispatcher("index.html").forward(request, response);
+        ArrayList<Auction> list = auc.getListAuction();
+        request.getServletContext().setAttribute("list",list);
+        request.getRequestDispatcher("auction.jsp").forward(request,response);
     }
 
     /**
