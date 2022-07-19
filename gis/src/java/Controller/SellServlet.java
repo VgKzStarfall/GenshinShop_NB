@@ -48,6 +48,9 @@ public class SellServlet extends HttpServlet {
         request.getServletContext().setAttribute("input","submit");
         request.getServletContext().setAttribute("back","hidden");
         request.getServletContext().setAttribute("hidden","hidden");
+        request.getServletContext().setAttribute("input2","submit");
+        request.getServletContext().setAttribute("back","hidden");
+        request.getServletContext().setAttribute("hidden2","hidden");
         request.getRequestDispatcher("evaluate.jsp").forward(request, response);
     }
 
@@ -64,7 +67,10 @@ public class SellServlet extends HttpServlet {
             throws ServletException, IOException {
         String charlist= (request.getParameter("charlist")).toLowerCase();
         int primos=Integer.parseInt(request.getParameter("primos"));
+        String weaplist = (request.getParameter("weaplist")).toLowerCase();
         String[] chars=charlist.replaceAll(" ","").split(",");
+        String[] weaps=weaplist.replaceAll(" ","").split(",");
+        int m=weaps.length;
         int n=chars.length;
         double eval=(double)0.01543209876*primos;
         CharValue cv2=new CharValue();
@@ -108,13 +114,36 @@ public class SellServlet extends HttpServlet {
             }
             i++;
         }
+        WeapValue wv= new WeapValue();
+        ArrayList<WeapValue> weapvalue = wv.getListWeapValue();
+        String[] weap = new String[10];
+        String[] ref = new String[10];
+        int k=0;
+        for (String str:weaps) {
+            weap[k]=str.substring(0,str.length()-1);
+            ref[k]=str.substring(str.length()-1);
+            for (WeapValue w: weapvalue) {
+                if (w.CodeName.contains(weap[k])) {
+                    weap[k]=w.WeapName;
+                    eval+=(w.initValue+w.IncValue*(Integer.parseInt(ref[k])-1));
+                    break;
+                }
+            }
+            k++;
+        }
         ArrayList<CharCons> ccl= new ArrayList<>();
         for (int j=0;j<i;j++) {
             ccl.add(new CharCons(name[j],Integer.parseInt(number[j])));
         }
+        ArrayList<WeapRef> wrl= new ArrayList<>();
+        for (int j=0;j<k;j++) {
+            wrl.add(new WeapRef(weap[j],Integer.parseInt(ref[j])));
+        }
         eval = Math.round(eval);
         request.getServletContext().setAttribute("charlist",charlist);
-        request.getServletContext().setAttribute("list",ccl);
+        request.getServletContext().setAttribute("clist",ccl);
+        request.getServletContext().setAttribute("weaplist",weaplist);
+        request.getServletContext().setAttribute("wlist",wrl);
         request.getServletContext().setAttribute("primo",primos);
         request.getServletContext().setAttribute("eval",eval);
         request.getRequestDispatcher("doneeval.jsp").forward(request,response);

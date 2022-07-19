@@ -5,21 +5,20 @@
  */
 package Controller;
 
+import Model.WeapValue;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import Model.*;
 import java.util.ArrayList;
-
 
 /**
  *
  * @author HP
  */
-public class StartAuctionServlet extends HttpServlet {
+public class MiddleServlet2 extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,6 +31,19 @@ public class StartAuctionServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet MiddleServlet2</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet MiddleServlet2 at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -46,31 +58,13 @@ public class StartAuctionServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String cc= request.getParameter("clist");
-        String wr= request.getParameter("wlist");
-        int primo = Integer.parseInt(request.getParameter("primo"));
-        
-        int price= (int)Double.parseDouble(request.getParameter("value"));
-        String acc=request.getParameter("acc");
-        Auction auc2= new Auction();
-        ArrayList<Auction> auclist = auc2.getListAuction();
-        int num=Integer.parseInt(auclist.get(auclist.size()-1).AuctionID.replaceAll("auc",""));
-        num++;
-        String aucId="auc"+Integer.toString(num);
-        int num2=Integer.parseInt(auclist.get(auclist.size()-1).ProductID.replaceAll("acc","")); 
-        num2++;
-        String proId="acc"+Integer.toString(num2);
-        auc2=auclist.get(auclist.size()-1);
-        Auction auc=new Auction(aucId,proId,price,price,acc,auc2.getStartdate());
-        Product p = new Product(proId,cc,wr,primo,acc,"abc123",price);
-        int k=p.addProduct(p);
-        int i=auc.startAuction(auc);
-        auclist = auc2.getListAuction();
-        request.getServletContext().setAttribute("list",auclist);
-        request.getRequestDispatcher("auction.jsp").forward(request,response);
+        WeapValue wv=new WeapValue();
+        ArrayList<WeapValue> weaplist = wv.getListWeapValue();
+        request.setAttribute("list", weaplist);
+        request.getRequestDispatcher("InputWeapon.jsp").forward(request,response);
     }
 
-    /** 
+    /**
      * Handles the HTTP <code>POST</code> method.
      *
      * @param request servlet request
@@ -81,19 +75,26 @@ public class StartAuctionServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String acc=request.getParameter("acc");
-        String proID= request.getParameter("proID");
-        int num= Integer.parseInt(request.getParameter("bid"));
-        Auction auc=new Auction();
-        ArrayList<Auction> auclist= auc.getListAuction();
-        for (Auction a:auclist) {
-            if (a.ProductID.equalsIgnoreCase(proID)) {auc=a;
-            break;}
+        WeapValue wv=new WeapValue();
+        ArrayList<WeapValue> weaplist=wv.getListWeapValue();
+        String list="";
+        String[] namelist= new String[weaplist.size()];
+        String[] conslist= new String[weaplist.size()];
+        int i=0;
+        for (WeapValue wv2:weaplist) {
+            namelist[i]=request.getParameter(wv2.CodeName);
+            conslist[i]=request.getParameter(wv2.CodeName+"1");
+            if (conslist[i]=="" && namelist[i]!="") conslist[i]="0";
+            if (namelist[i]!=null) {
+                list+=namelist[i]+conslist[i]+",";
+            }
+            i++;
         }
-        int i=auc.bidForAuction(auc,num,acc);
-        ArrayList<Auction> list = auc.getListAuction();
-        request.getServletContext().setAttribute("list",list);
-        request.getRequestDispatcher("auction.jsp").forward(request,response);
+        list=list.substring(0,list.length()-1).toLowerCase();
+        request.getServletContext().setAttribute("input2","hidden");
+        request.getServletContext().setAttribute("hidden2","");
+        request.getServletContext().setAttribute("weaplist",list);
+        request.getRequestDispatcher("evaluate.jsp").forward(request,response);
     }
 
     /**

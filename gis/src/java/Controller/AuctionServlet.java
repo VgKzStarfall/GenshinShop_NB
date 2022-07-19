@@ -83,11 +83,9 @@ public class AuctionServlet extends HttpServlet {
                 break;
             }
         }
-        String[] charList= pro.charlist.split(",");
-        String[] weapList= pro.weaponlist.split(",");
         request.getServletContext().setAttribute("wal", wal);
-        request.getServletContext().setAttribute("list",charList);
-        request.getServletContext().setAttribute("list2",weapList);
+        request.setAttribute("list",pro.charlist);
+        request.setAttribute("list2",pro.weaponlist);
         request.getServletContext().setAttribute("pro",pro);
         request.getServletContext().setAttribute("auc",auc);
         request.getRequestDispatcher("bid.jsp").forward(request,response);

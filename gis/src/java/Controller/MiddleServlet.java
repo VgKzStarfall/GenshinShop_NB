@@ -79,9 +79,8 @@ public class MiddleServlet extends HttpServlet {
         }
         list=list.substring(0,list.length()-1).toLowerCase();
         request.getServletContext().setAttribute("input","hidden");
-        request.getServletContext().setAttribute("back","submit");
         request.getServletContext().setAttribute("hidden","");
-        request.getServletContext().setAttribute("list",list);
+        request.getServletContext().setAttribute("charlist",list);
         request.getRequestDispatcher("evaluate.jsp").forward(request,response);
     }
 

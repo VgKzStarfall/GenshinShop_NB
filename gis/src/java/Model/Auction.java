@@ -102,7 +102,7 @@ public class Auction {
         PreparedStatement ps=null;
         ResultSet rs=null;
         try {
-            String query = "select * from dbo.Auction";
+            String query = "select * from dbo.Auction order by LEN(AuctionID),AuctionID";
             conn = new Database().getConnection();
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
@@ -136,10 +136,10 @@ public class Auction {
         }
         return -1;
     }
-    public int bidForAuction(Auction auc,int money) {
+    public int bidForAuction(Auction auc,int money,String name) {
         Connection conn=null;
         try {
-            String query = "update dbo.Auction set CurrentPrice="+Integer.toString(money)+" where AuctionID='"+auc.AuctionID+"'";
+            String query = "update dbo.Auction set CurrentPrice="+Integer.toString(money)+", Winner='"+name+"' where AuctionID='"+auc.AuctionID+"'";
             conn = new Database().getConnection();
             Statement stmt = conn.createStatement();
             return stmt.executeUpdate(query);
