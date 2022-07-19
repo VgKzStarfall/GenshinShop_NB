@@ -1,9 +1,11 @@
 <%-- 
-    Document   : evaluate
-    Created on : Jun 16, 2022, 9:30:29 PM
+    Document   : InputInfo
+    Created on : Jun 23, 2022, 5:03:07 PM
     Author     : HP
 --%>
-
+<%@page import="Model.*" %>
+<%@page import="java.util.ArrayList" %>
+<%@taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -14,7 +16,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <title>Sell Account</title>
+        <title>input Information</title>
         <style>
             .gis-sidebar a {font-family: "Roboto", sans-serif}
             body,h1,h2,h3,h4,h5,h6,.gis-wide {font-family: "Montserrat", sans-serif;}
@@ -36,9 +38,10 @@
     <div id="demoAcc" class="gis-bar-block gis-hide gis-padding-large gis-medium">
       <a href="buy?vip=0" class="gis-bar-item gis-button">SUGGESTED ACCOUNTS</a>
       <a href="buy?vip=1" class="gis-bar-item gis-button">VIP ACCOUNTS</a>
-      
+     
     </div>
-      <a style="background-color:white;color:black;" class="gis-bar-item gis-button">SELL ACCOUNT</a>
+
+<a style="background-color:white;color:black;" class="gis-bar-item gis-button">SELL ACCOUNT</a>
     <form action="auctionservlet" method="GET">
         <input type="hidden" value="${sessionScope.acc.username}" name="acc"/>
         <input type="submit" class="gis-bar-item gis-button" value="AUCTION">
@@ -68,67 +71,87 @@
   
   <!-- Top header -->
   <header class="gis-container gis-xlarge">
-    <p class="gis-left" style="margin-left:27%; color:white">ACCOUNT VALUATION</p>
+    <p class="gis-left" style="margin-left:30%; color:white">Input Weapon</p>
 
   </header>
   <style>
-      div.body {
-          border-radius:20px;
-          background-image:url(media/eval.jpg);
-          background-position:center;
-          background-repeat:no-repeat;
-          background-size:cover;
-          font-size:200%;
-          margin-left:10%;
-          margin-right:10%;
-          padding-left:10%;
-          padding-top:10%;
-          padding-bottom:10%;
+      div.input {
+          background-color:white;
+          border-radius:50px;
+          margin-left:3%;
+          padding-left:5%;
+          margin-right:3%;
+          padding-top:2%;
       }
-      .eval:hover {
-          color:white;
+      img.char {
+          margin: 2% 1% 9% 1%;
+      }
+      input.done {
+          margin-bottom:7%;
+          margin-top:5%;
+          margin-left:40%;
+          padding: 10px 10px 10px 10px;
           background-color:black;
-      }
-      .input {
           color:white;
-          background-color:black;
       }
-      .input:hover {
+      input.done:hover {
+          background-color:grey;
           color:black;
-          background-color:lightblue;
       }
   </style>
   <body>
-      <div class="body">
-          <form action="middle" method="GET">
-              <input class="input" style="position:absolute;margin-left:20%;" type="${input}" value="Input Characters"/>
-          </form>
-          <form action="middle2" method="GET">
-              <input class="input" style="position:absolute;margin-left:20%;margin-top:5%;padding-left:30px;padding-right:17px;" type="${input2}" value="Input Weapon"/>
-          </form>
-          <form action="sellservlet" method="POST">
-              Enter Character list: <a ${hidden} style="color:red;">Information inputted.</a><BR><BR>
-              <input id="charlist" type="hidden" name="charlist" value="${charlist}"/>
-              Enter Weapon list:   <a ${hidden2} style="color:red;">Information inputted.</a><BR><BR>
-              <input id="weaplist" type="hidden" name="weaplist" value="${weaplist}"/>
-              Enter Primogems:     <input id="primos" style="margin-left:13px;width:500px;" type="text" name="primos" value="0"><BR>
-              <input onclick="check()" class="eval" style="margin-left:32%;margin-top:20%;" type="submit" value="EVALUATE"/>
+      <div class="input">
+          <form action="middle2" method="POST">
+      <% 
+        ArrayList<WeapValue> wv = (ArrayList<WeapValue>) request.getAttribute("list");
+        int n = wv.size();
+        int m=(int)n/5 + 1;
+        for (int i=0;i<m-1;i++) {
+            for (int j=0;j<5;j++) {
+                String Cname= wv.get(j+i*5).CodeName;
+                String s= "media/"+Cname+".jpg";
+                String Wname= wv.get(j+i*5).WeapName;
+                String h1=Cname+"1";
+      %>
+            <label style="position:absolute;padding-left:4%;padding-top:249px;"> <%=Wname%> </label>
+            <img style="" class="char" src="<%=s%>" width="15%"/>
+            <input style="position:relative; left:-180px;top:100px;" type="checkbox" name="<%=Cname%>" value="<%=Cname%>" />
+            <a  style="position:absolute;margin-left:-12%;margin-top:280px;"> Refinement: </a>
+            <select style="position:absolute;margin-left:-5%;margin-top:280px;width:50px;" type="text" name="<%=h1%>">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+      <%
+            }
+      %> <BR> <%
+       }
+        for (int i=25;i<=28;i++) {
+            String Cname= wv.get(i).CodeName;
+            String s= "media/"+Cname+".jpg";
+            String Wname= wv.get(i).WeapName;  
+            String h1=Cname+"1";
+        %>
+            <label style="position:absolute;padding-left:4%;padding-top:249px;"> <%=Wname%> </label>
+            <img style="" class="char" src="<%=s%>" width="15%"/>
+            <input style="position:relative; left:-180px;top:100px;" type="checkbox" name="<%=Cname%>" value="<%=Wname%>" />
+            <a  style="position:absolute;margin-left:-12%;margin-top:280px;"> Refinement: </a>
+            <select style="position:absolute;margin-left:-5%;margin-top:280px;width:50px;" type="text" name="<%=h1%>">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+         <% } %>
+         <BR>
+            <input onclick="confirm('Confirm!')" class="done" type="submit" value="Done inputting info"/>
           </form>
       </div>
   </body>
     <script>
-        function check() {
-            var x = document.getElementById("charlist").value;
-            var y = document.getElementById("weaplist").value;
-            if (x==="") {
-                alert("You must input characters in your account!");
-                event.preventDefault();
-            }
-            if (y==="") {
-                alert("You must input weapons in your account!");
-                event.preventDefault();
-            }
-        }
   function myAccFunc() {
   var x = document.getElementById("demoAcc");
   if (x.className.indexOf("gis-show") == -1) {

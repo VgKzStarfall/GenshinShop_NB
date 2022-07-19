@@ -82,9 +82,12 @@
           font-size:200%;
           margin-left:10%;
           margin-right:10%;
-          padding-left:10%;
+          padding-left:8%;
           padding-top:5%;
           padding-bottom:10%;
+      }
+      td {
+          border: 1px solid black;
       }
       .eval:hover {
           color:white;
@@ -94,17 +97,32 @@
   <body>    
   <div class="body">
       <p>Primogems: ${primo}</p>
-      <table class="body" border="1">
+      <table class="body">
           <thead> <tr>
-          <td>Character List:</td>
-          <td>Constellation:</td>
+          <td style="font-weight:bold;" width="460px">Character List:</td>
+          <td style="font-weight:bold;">Constellation:</td>
           </tr>
           </thead>
           <tbody>
-                <c:forEach items="${list}" var="p">
+                <c:forEach items="${clist}" var="p">
                 <tr>
                     <td>${p.charname}</td>
                     <td>${p.cons}</td>
+                </tr>
+                </c:forEach>
+          </tbody>
+        </table>
+      <table class="body">
+          <thead> <tr>
+          <td style="font-weight:bold;" width="460px">Weapon List:</td>
+          <td style="font-weight:bold;" width="205px">Refinement:</td>
+          </tr>
+          </thead>
+          <tbody>
+                <c:forEach items="${wlist}" var="w">
+                <tr>
+                    <td>${w.weapName}</td>
+                    <td>${w.refine}</td>
                 </tr>
                 </c:forEach>
           </tbody>
@@ -113,14 +131,16 @@
   </div>  
   <form action="sell2" method="GET">
       <input type="hidden" value="${primo}" name="primo"/>
-      <input type="hidden" value="${charlist}" name="list"/>
+      <input type="hidden" value="${charlist}" name="clist"/>
+      <input type="hidden" value="${weaplist}" name="wlist"/>
       <input type="hidden" value="${eval}" name="value"/>
       <input type="hidden" value="${sessionScope.acc.username}" name="acc"/>
       <input style="position:absolute;margin-left:25%;margin-top:-5%;padding:10px;" onclick="confirm('Confirm!')" type="submit" value="Sell this Account"/>
   </form>
   <form action="startauction" method="GET">
       <input type="hidden" value="${primo}" name="primo"/>
-      <input type="hidden" value="${charlist}" name="list"/>
+      <input type="hidden" value="${charlist}" name="clist"/>
+      <input type="hidden" value="${weaplist}" name="wlist"/>
       <input type="hidden" value="${eval}" name="value"/>
       <input type="hidden" value="${sessionScope.acc.username}" name="acc"/>
       <input style="position:absolute;margin-left:45%;margin-top:-5%;padding:10px;" onclick="confirm('Confirm!')" type="submit" value="Start an Auction on this account"/>

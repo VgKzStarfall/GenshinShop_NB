@@ -79,9 +79,10 @@
     </body>
     <style>
         table {
-            background-image:url(media/auction.png);
+            background-color:white;
             background-size:1250px 780px;
             background-repeat:no-repeat;
+            border-radius:100px;
             padding-top:11%;
             padding-bottom:10%;
             padding-left:8%;
@@ -97,6 +98,7 @@
             color:white;
         }
         td {
+            color:black;
         }
         .bid {
             color:white;
@@ -107,6 +109,7 @@
             background-color:white;
         }
     </style>
+    
     <table>
             <thead>
                 <tr>
@@ -133,6 +136,7 @@
                         <td><form action="auctionservlet" method="POST">
                                 <input type="hidden" value="${sessionScope.acc.username}" name="acc"/>
                                 <input type="hidden" value="${auc.auctionID}" name="ID"/>
+                                <input type="hidden" value="${auc.winner}" name="win"/>
                                 <input class="bid" type="submit" value="Info" />
                             </form>
                         </td>

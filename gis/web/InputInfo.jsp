@@ -41,10 +41,7 @@
      
     </div>
 
-        <form action="sellservlet" method="GET">
-        <input type="hidden" value="${sessionScope.acc.username}" name="acc"/>
-        <input type="submit" class="gis-bar-item gis-button" value="SELL ACCOUNT">
-    </form>
+     <a style="background-color:white;color:black;" class="gis-bar-item gis-button">SELL ACCOUNT</a>
     <form action="auctionservlet" method="GET">
         <input type="hidden" value="${sessionScope.acc.username}" name="acc"/>
         <input type="submit" class="gis-bar-item gis-button" value="AUCTION">
@@ -143,7 +140,15 @@
             <img style="" class="char" src="<%=s%>" width="15%"/>
             <input style="position:relative; left:-180px;top:180px;" type="checkbox" name="<%=Cname%>" value="<%=Fname%>" />
             <a  style="position:absolute;margin-left:-12%;margin-top:460px;"> Constellation: </a>
-            <input style="position:absolute;margin-left:-5%;margin-top:455px;width:30px;" type="text" value="" name="<%=h1%>" />
+            <select style="position:absolute;margin-left:-5%;margin-top:458px;width:50px;" type="text" name="<%=h1%>">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+            </select>
          <% } %>
          <BR>
             <input onclick="confirm('Confirm!')" class="done" type="submit" value="Done inputting info"/>

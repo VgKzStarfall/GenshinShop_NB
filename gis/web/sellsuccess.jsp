@@ -125,7 +125,7 @@
                             </tr>
                             </tr>
                                 <th>Account Value</th>
-                                <th><input type="text" name="value" value="${pro.price}" disabled="disabled" /></th>
+                                <th><input type="text" name="value" value="${pro.price}$" disabled="disabled" /></th>
                             </tr>
                         </thead>
                        
