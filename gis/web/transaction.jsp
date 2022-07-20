@@ -1,3 +1,4 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@page import="Model.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -11,6 +12,8 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <title>Transaction History</title>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
         <style>
             .gis-sidebar a {font-family: "Roboto", sans-serif}
             body,h1,h2,h3,h4,h5,h6,.gis-wide {font-family: "Montserrat", sans-serif;}
@@ -91,6 +94,7 @@
             background-size:1250px 780px;
             background-repeat:no-repeat;
             padding: 30px;
+            padding-left:100px;
             /*color:white;*/
             border: 1px white;
             border:none;
@@ -137,9 +141,11 @@
                     <th>Method</th>
                     <th>Balance</th>
                     <th>Date</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
+                <input id="text" type="hidden" value=""/>
                 <c:forEach items="${pList}" var="pay"> 
                     <tr>
                         <td>${pay.paymentID}</td>
@@ -147,14 +153,49 @@
                         <td>${pay.method}</td>
                         <td>${pay.value}</td>
                         <td>${pay.date}</td>
-
+                        <td>
+                            <button onclick='document.getElementById("${pay}").style.display="block";document.getElementById("text").value="${pay.paymentID}";'>Generate Invoice</button>
+                            <div id='${pay}' style="display:none;position:absolute;z-index:10;background-color:white;border:1px solid black;border-radius:100px;top:250px;left:400px;right:300px;bottom:50px;">
+                                <img onclick='document.getElementById("${pay}").style.display="none"' src='media/close.jpg' width="5%" height="auto" style="position:absolute;border-radius:60%;margin-left:90%;margin-top:2%;"/>
+                                <div id="${pay.paymentID}">                             
+                                <img src="media/Genshin-Impact-Logo.png" width="200px" height="auto" style="margin-left:39%;top:-20px"/>
+                                <h1 style="font-size:150%;color:white;background-color:black;text-align:center;"> INVOICE </h1>         
+                                <h3 style="position:absolute;margin-left:8%;margin-top:10px;font-size:150%;"> Genshin Impact Shop </h3>
+                                <h4 style="position:absolute;margin-left:5%;margin-top:-50px;color:white;"> User: ${sessionScope.acc.username}</h4>
+                                <div style="margin-left:70%;margin-top:30px;">
+                                <h4> Payment ID: ${pay.paymentID}</h3>
+                                <h4> Date: ${pay.date}</h4>
+                                
+                                </div>
+                                <div style="text-align:center;margin-top:30px;">
+                                <c:if test="${pay.value>0}">
+                                    <h4> Balance increased: <a style="font-weight:bold;font-size:150%;">${pay.value}$</a></h4>
+                                </c:if>
+                                <c:if test="${pay.value<0}">
+                                <h4> Balance decreased: <a style="font-weight:bold;font-size:150%;">${pay.value}</a></h4>
+                                </c:if>
+                                <h4> Payment Method: <a style="font-weight:bold;text-transform:capitalize;">${pay.method}</a></h4>
+                                <h4>Status: <a style="font-weight:bold;">SUCCESS</a></h4>
+                                </div>
+                            </div>
+                                <button style="margin-left:39%;color:white;background-color:black;" onmouseout="this.style='margin-left:40%;color:white;background-color:black;'" onmouseover="this.style='margin-left:40%;color:black;background-color:grey;'" onclick="generatePDF()">Download as PDF</button>
+                            </div>
+                                <script>
+                                    function generatePDF() {
+                                        var x = document.getElementById("text").value;
+				// Choose the element that our invoice is rendered in.
+				const element = document.getElementById(x);
+				// Choose the element and save the PDF for our user.
+                                html2pdf().from(element).save();
+			}
+                                </script>
+                        </td>
                     </tr>
                 </c:forEach>
             </tbody>
         </table>
     </div>
     <script>
-// Accordion 
         function myAccFunc() {
             var x = document.getElementById("demoAcc");
             if (x.className.indexOf("gis-show") == -1) {

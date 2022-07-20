@@ -71,7 +71,7 @@
   
   <!-- Top header -->
   <header class="gis-container gis-xlarge">
-    <p class="gis-left" style="margin-left:30%; color:black">AUCTION</p>
+    <p class="gis-left" style="margin-left:30%; color:white">Input Characters</p>
 
   </header>
   <style>
@@ -80,7 +80,7 @@
           border-radius:50px;
           margin-left:3%;
           padding-left:5%;
-          margin-right:3%;
+          margin-right:2%;
           padding-top:2%;
       }
       img.char {
@@ -98,24 +98,34 @@
           background-color:grey;
           color:black;
       }
+      div.char {
+          display:inline;
+      }
+      @media (max-width:768px) {
+          
+      }
   </style>
   <body>
       <div class="input">
           <form action="middle" method="POST">
+              <img src="media/searching.png" width='25px' style='padding-left:20%;'/>
+              <input type="text" style="width:50%;height:30px;" id="myInput" onkeyup="myFunction()" placeholder="Search for Characters.."><BR>
+              <a href="#submit"> <img style="width:100px;height:70px;border-radius:50%;position:fixed;left:92%;top:80%;" src="media/down.png"/></a>
       <% 
         ArrayList<CharValue> cv = (ArrayList<CharValue>) request.getAttribute("list");
         int n = cv.size();
         int m=(int)n/5 + 1;
-        for (int i=0;i<m-1;i++) {
-            for (int j=0;j<5;j++) {
-                String Cname= cv.get(j+i*5).CodeName;
-                String s= "media/"+Cname+".jpg";
-                String Fname= cv.get(j+i*5).FullName;
-                String h1=Cname+"1";
+        String Cname=null,s=null,Fname=null,h1=null;
+        for (int i=0;i<n;i++) {
+                Cname= cv.get(i).CodeName;
+                s= "media/"+Cname+".jpg";
+                Fname= cv.get(i).FullName;
+                h1=Cname+"1";
       %>
-            <label style="position:absolute;padding-left:4%;padding-top:408px;"> <%=Fname%> </label>
-            <img style="" class="char" src="<%=s%>" width="15%"/>
-            <input style="position:relative; left:-180px;top:180px;" type="checkbox" name="<%=Cname%>" value="<%=Cname%>" />
+      
+      <div class="char">     <img id="id01" style="" class="char" src="<%=s%>" width="15%"/>
+            <input id="<%=h1%>" style="position:relative; left:-180px;top:180px;" type="checkbox" name="<%=Cname%>" value="<%=Cname%>" />
+            <label for="<%=h1%>" style="position:absolute;margin-left:-10%;padding-top:412px;"> <a><%=Fname%></a> </label>
             <a  style="position:absolute;margin-left:-12%;margin-top:460px;"> Constellation: </a>
             <select style="position:absolute;margin-left:-5%;margin-top:458px;width:50px;" type="text" name="<%=h1%>">
                 <option value="0">0</option>
@@ -126,36 +136,36 @@
                 <option value="5">5</option>
                 <option value="6">6</option>
             </select>
+      </div>
       <%
-        }
-      %> <BR> <%
        }
-        for (int i=45;i<=47;i++) {
-            String Cname= cv.get(i).CodeName;
-            String s= "media/"+Cname+".jpg";
-            String Fname= cv.get(i).FullName;  
-            String h1=Cname+"1";
         %>
-            <label style="position:absolute;padding-left:4%;padding-top:408px;"> <%=Fname%> </label>
-            <img style="" class="char" src="<%=s%>" width="15%"/>
-            <input style="position:relative; left:-180px;top:180px;" type="checkbox" name="<%=Cname%>" value="<%=Fname%>" />
-            <a  style="position:absolute;margin-left:-12%;margin-top:460px;"> Constellation: </a>
-            <select style="position:absolute;margin-left:-5%;margin-top:458px;width:50px;" type="text" name="<%=h1%>">
-                <option value="0">0</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-            </select>
-         <% } %>
          <BR>
-            <input onclick="confirm('Confirm!')" class="done" type="submit" value="Done inputting info"/>
+            <input id="submit" onclick="confirm('Confirm!')" class="done" type="submit" value="Done inputting info"/>
           </form>
       </div>
   </body>
     <script>
+        function myFunction() {
+            var input, filter, lidiv, li, a, i, txtValue;
+            input = document.getElementById('myInput');
+            filter = input.value.toUpperCase();
+            li = document.getElementsByTagName('label');
+            lidiv = document.getElementsByTagName('div');
+
+  // Loop through all list items, and hide those who don't match the search query
+    for (i = 0; i < li.length; i++) {
+    a = li[i].getElementsByTagName("a")[0];
+    txtValue = a.textContent || a.innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      li[i].style.display = "";
+      lidiv[i+8].style.display="";
+    } else {
+      lidiv[i+8].style.display="none";
+      li[i].style.display = "none";
+    }
+  }
+        }
   function myAccFunc() {
   var x = document.getElementById("demoAcc");
   if (x.className.indexOf("gis-show") == -1) {

@@ -98,24 +98,30 @@
           background-color:grey;
           color:black;
       }
+      div.weap {
+          display:inline;
+      }
   </style>
   <body>
       <div class="input">
           <form action="middle2" method="POST">
+              <img src="media/searching.png" width='25px' style='padding-left:20%;'/>
+              <input type="text" style="width:50%;height:30px;" id="myInput" onkeyup="myFunction()" placeholder="Search for Weapons.."><BR>
+              <a href="#submit"> <img style="width:100px;height:70px;border-radius:50%;position:fixed;left:92%;top:80%;" src="media/down.png"/></a>
       <% 
         ArrayList<WeapValue> wv = (ArrayList<WeapValue>) request.getAttribute("list");
         int n = wv.size();
         int m=(int)n/5 + 1;
-        for (int i=0;i<m-1;i++) {
-            for (int j=0;j<5;j++) {
-                String Cname= wv.get(j+i*5).CodeName;
+        for (int i=0;i<n;i++) {
+                String Cname= wv.get(i).CodeName;
                 String s= "media/"+Cname+".jpg";
-                String Wname= wv.get(j+i*5).WeapName;
+                String Wname= wv.get(i).WeapName;
                 String h1=Cname+"1";
       %>
-            <label style="position:absolute;padding-left:4%;padding-top:249px;"> <%=Wname%> </label>
+      <div class='weap'>     
             <img style="" class="char" src="<%=s%>" width="15%"/>
-            <input style="position:relative; left:-180px;top:100px;" type="checkbox" name="<%=Cname%>" value="<%=Cname%>" />
+            <input id="<%=h1%>" style="position:relative; left:-180px;top:100px;" type="checkbox" name="<%=Cname%>" value="<%=Cname%>" />
+            <label for="<%=h1%>" style="position:absolute;margin-left:-10%;padding-top:252px;"><a> <%=Wname%> </a></label>
             <a  style="position:absolute;margin-left:-12%;margin-top:280px;"> Refinement: </a>
             <select style="position:absolute;margin-left:-5%;margin-top:280px;width:50px;" type="text" name="<%=h1%>">
                 <option value="1">1</option>
@@ -124,34 +130,36 @@
                 <option value="4">4</option>
                 <option value="5">5</option>
             </select>
+      </div>
       <%
             }
-      %> <BR> <%
-       }
-        for (int i=25;i<=28;i++) {
-            String Cname= wv.get(i).CodeName;
-            String s= "media/"+Cname+".jpg";
-            String Wname= wv.get(i).WeapName;  
-            String h1=Cname+"1";
-        %>
-            <label style="position:absolute;padding-left:4%;padding-top:249px;"> <%=Wname%> </label>
-            <img style="" class="char" src="<%=s%>" width="15%"/>
-            <input style="position:relative; left:-180px;top:100px;" type="checkbox" name="<%=Cname%>" value="<%=Wname%>" />
-            <a  style="position:absolute;margin-left:-12%;margin-top:280px;"> Refinement: </a>
-            <select style="position:absolute;margin-left:-5%;margin-top:280px;width:50px;" type="text" name="<%=h1%>">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-            </select>
-         <% } %>
+      %>
          <BR>
-            <input onclick="confirm('Confirm!')" class="done" type="submit" value="Done inputting info"/>
+            <input id="submit" onclick="confirm('Confirm!')" class="done" type="submit" value="Done inputting info"/>
           </form>
       </div>
   </body>
     <script>
+        function myFunction() {
+            var input, filter, lidiv, li, a, i, txtValue;
+            input = document.getElementById('myInput');
+            filter = input.value.toUpperCase();
+            li = document.getElementsByTagName('label');
+            lidiv = document.getElementsByTagName('div');
+
+  // Loop through all list items, and hide those who don't match the search query
+    for (i = 0; i < li.length; i++) {
+    a = li[i].getElementsByTagName("a")[0];
+    txtValue = a.textContent || a.innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      li[i].style.display = "";
+      lidiv[i+8].style.display="";
+    } else {
+      lidiv[i+8].style.display="none";
+      li[i].style.display = "none";
+    }
+  }
+        }
   function myAccFunc() {
   var x = document.getElementById("demoAcc");
   if (x.className.indexOf("gis-show") == -1) {

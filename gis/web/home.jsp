@@ -204,7 +204,7 @@ window.onclick = function(event) {
 }
 </script>
     <button class="register" onclick="window.location.href='logout';">Logout</button>
-    <p class="gis-left">?ll?ll? ??????? ?????? ???? ?ll?ll?</p>
+    <p class="gis-left">GENSHIN IMPACT SHOP</p>
 
   </header>
 
