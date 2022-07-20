@@ -58,14 +58,16 @@ public class StartAuctionServlet extends HttpServlet {
         num++;
         String aucId="auc"+Integer.toString(num);
         int num2=Integer.parseInt(auclist.get(auclist.size()-1).ProductID.replaceAll("acc","")); 
-        num2++;
+        num2+=1;
         String proId="acc"+Integer.toString(num2);
         auc2=auclist.get(auclist.size()-1);
         Auction auc=new Auction(aucId,proId,price,price,acc,auc2.getStartdate());
-        Product p = new Product(proId,cc,wr,primo,acc,"abc123",price);
+        Product p = new Product(proId,cc,wr,primo,acc,"asasddsa",price);
         int k=p.addProduct(p);
         int i=auc.startAuction(auc);
         auclist = auc2.getListAuction();
+        request.getServletContext().setAttribute("i",i);
+        request.getServletContext().setAttribute("k",k);
         request.getServletContext().setAttribute("list",auclist);
         request.getRequestDispatcher("auction.jsp").forward(request,response);
     }

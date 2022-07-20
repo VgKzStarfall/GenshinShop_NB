@@ -57,12 +57,13 @@ public class SellServlet2 extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String cc= request.getParameter("list");
+        String cc= request.getParameter("clist");
+        String wr= request.getParameter("wlist");
         int primo = Integer.parseInt(request.getParameter("primo"));
         
         int price= (int)Double.parseDouble(request.getParameter("value"));
         String acc=request.getParameter("acc");
-        Product p = new Product("product",cc,"N/A",primo,acc,"acc",price);
+        Product p = new Product("product",cc,wr,primo,acc,"acc",price);
         request.getServletContext().setAttribute("pro", p);
         request.getRequestDispatcher("sellsuccess.jsp").forward(request, response);
     }
