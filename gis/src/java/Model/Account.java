@@ -135,6 +135,18 @@ public class Account {
         }
         return 0;
     }
+      public void changePass(String pass, String user) {
+          Connection conn = null;
+          String query ="update Account set password = ? where username = ?";
+          try {
+              conn = new Database().getConnection();
+              PreparedStatement ps = conn.prepareStatement(query);
+              ps.setString(1, pass);
+              ps.setString(2, user);
+              ps.executeUpdate();
+          } catch (Exception e) {
+          }
+      }
      
 
     /*
