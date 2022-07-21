@@ -107,7 +107,7 @@
           <form action="middle2" method="POST">
               <img src="media/searching.png" width='25px' style='padding-left:20%;'/>
               <input type="text" style="width:50%;height:30px;" id="myInput" onkeyup="myFunction()" placeholder="Search for Weapons.."><BR>
-              <a href="#submit"> <img style="width:100px;height:70px;border-radius:50%;position:fixed;left:92%;top:80%;" src="media/down.png"/></a>
+              <a href="#submit"> <img style="width:70px;height:70px;border-radius:50%;position:fixed;left:92%;top:80%;" src="media/down.png"/></a>
       <% 
         ArrayList<WeapValue> wv = (ArrayList<WeapValue>) request.getAttribute("list");
         int n = wv.size();

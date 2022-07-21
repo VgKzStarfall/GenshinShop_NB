@@ -111,11 +111,61 @@
             background-color:white;
         }
     </style>
-    <div id="invoice">
-        Hi my name's Huy
+    <div style="background-color:white;margin-left:15%;margin-right:15%;margin-bottom:10%;padding:5%;padding-top:2%;border-radius:100px;">
+        <h1 style="text-align:center;"> TERMS OF SERVICE </h1>
+        <h2>1.GENERAL STATEMENT</h2>
+    These policies aim to establish guidelines for the proper development of GIS and the quality of experience for all GIS users.
+    <h2>2.TRADING POLICIES</h2>
+    -To be able to put your accounts on sale on GIS, please make sure that all the information sent is true, we assure you that the credential will be safely managed for the sake of both sides.
+    <BR>-For buyers, we can not display all the crucial information directly related to confidential information in order to keep the process safe, with all the information provided, please make up your mind before buying an account.
+    <BR>-No refund is available after sale has been settled.
+    <h2>3.TRADEMARK</h2>
+    -All rights reserved.
+    <BR>-GIS is a registered trademark by all the members of Genshin Gang, which is prohibited from copying by all means.
+    <h2> 
+        <button style="margin-left:30%;color:white;background-color:green;" onmouseover="style='margin-left:30%;color:white;background-color:#00FF00;'" onmouseout="style='margin-left:30%;color:white;background-color:green;'" onclick="document.getElementById('input').style.display='block'">I Agree</button>
+        <button style="color:white;background-color:#800000;" onmouseover="style='color:white;background-color:red;'" onmouseout="style='color:white;background-color:#800000;'" onclick="history.back()">I Decline</button>
+        <form style="position:absolute;margin-top:-27%;margin-left:-3.2%;;padding:7%;border:1px solid black;border-radius:100px;margin-bottom:-5%;z-index:10;display:none;background-color:white;" id="input" action="insertaccount" method="POST">
+            Input your Genshin Impact account information:<BR>
+                <input type="hidden" value="${primo}" name="primo"/>
+                <input type="hidden" value="${charlist}" name="clist"/>
+                <input type="hidden" value="${weaplist}" name="wlist"/>
+                <input type="hidden" value="${eval}" name="value"/>
+            User ID:<input id="uID" style="margin-left:10%;" type="text" name="uID" value=""/><BR>
+            Password:<input id="pass" style="margin-left:5.3%;" type="password" name="pass" value=""/><BR>
+            <img id="showimg" onclick="show()" style="display:block;position:absolute;margin-left:60%;margin-top:-4%;" src="media/show.png" width="35px" height="auto"/>
+            <img id="hideimg" onclick="hide()" style="display:none;position:absolute;margin-left:60%;margin-top:-4%;" src="media/hide.png" width="35px" height="auto"/>
+            <input style="margin-left:40%;margin-top:5%;" onclick="check()" type="submit" value="Confirm"/>
+        </form>
     </div>
-    <button onclick="generatePDF()">Download as PDF</button>
     <script>
+        function show() {
+            document.getElementById("pass").type="text";
+            document.getElementById("showimg").style.display="none";
+            document.getElementById("hideimg").style.display="block";
+        }
+        function hide() {
+            document.getElementById("pass").type="password";
+            document.getElementById("showimg").style.display="block";
+            document.getElementById("hideimg").style.display="none";
+        }
+        function check() {
+            var x=document.getElementById("uID").value;
+            var y=document.getElementById("pass").value;
+            if (x==="") {
+                alert("You must input user ID");
+                event.preventDefault();
+            } 
+            if (y==="") {
+                alert("You must input password");
+                event.preventDefault();
+            }
+            if (x!=="" && y!=="") {
+                if (!confirm("Confirm you information?")) {
+                    event.preventDefault();
+                }
+            }
+        }
 			function generatePDF() {
 				// Choose the element that our invoice is rendered in.
 				const element = document.getElementById('invoice');

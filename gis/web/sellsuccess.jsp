@@ -103,35 +103,8 @@
   </style>
   <body>
       <div class="body">
-          <h3> Account info: </h3>
-          <h4> (You can change account name if you want! </h4>
-          <form action="sell2" method="POST">
-              <input type="hidden" value="${sessionScope.acc.username}" name="acc"/>
-          <table border="1">
-                        <thead>
-                            <tr> <th>Account:</th><th> <input type="text" name="name" value="${pro.productID}"/></th> 
-                            </tr>
-                            <tr>
-                                <th>Character List</th>
-                               <th><input type="text" name="list" value="${pro.charlist}" disabled="disabled" /></th>
-                            </tr>
-                            <tr>
-                                <th>Weapon List</th>
-                                <th><input type="text" name="" value="${pro.weaponlist}" disabled="disabled" /></th>
-           
-                            </tr>
-                                <th>Primogems</th>
-                                <th><input type="text" name="primo" value="${pro.primogems}" disabled="disabled" /></th>
-                            </tr>
-                            </tr>
-                                <th>Account Value</th>
-                                <th><input type="text" name="value" value="${pro.price}$" disabled="disabled" /></th>
-                            </tr>
-                        </thead>
-                       
-                    </table>
-                            <input type="submit" value="CONFIRM"/>
-          </form>
+          <h3> Open sale for inputted account succeed!</h3>
+          <h3> We will inform you when you account sold and update your wallet! </h3>
       </div>
   </body>
     <script>

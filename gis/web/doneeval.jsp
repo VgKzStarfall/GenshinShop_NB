@@ -82,6 +82,7 @@
           font-size:200%;
           margin-left:10%;
           margin-right:10%;
+          margin-bottom:10%;
           padding-left:8%;
           padding-top:5%;
           padding-bottom:10%;
@@ -95,6 +96,17 @@
       }
   </style>
   <body>    
+      <form action="insertaccount" method="GET">
+          <input type="hidden" value="${primo}" name="primo"/>
+      <input type="hidden" value="${charlist}" name="clist"/>
+      <input type="hidden" value="${weaplist}" name="wlist"/>
+      <input type="hidden" value="${eval}" name="value"/>
+      <input type="hidden" value="${sessionScope.acc.username}" name="acc"/>   
+      
+      <input style="position:absolute;margin-left:35%;margin-top:6%;padding:10px;" type="${submit}" value="Input Account Information"/>
+      </form>
+      <a style="position:absolute;margin-left:35%;margin-top:6.5%;font-size:150%;color:#00FF00;" ${hidden}>Security Information inputted!</a>
+   
   <div class="body">
       <p>Primogems: ${primo}</p>
       <table class="body">
@@ -127,24 +139,35 @@
                 </c:forEach>
           </tbody>
         </table>
-    <p style="color:black">Account value after auto-evaluation: ${eval}$</p>
-  </div>  
+      <p style="color:black">Account value after auto-evaluation: <a style="font-weight:bold;">${eval}$</a></p>
+    <h6 style="color:red;" ${hidden2}> Please input account security information before open sale or auction for this account!</h6> 
   <form action="sell2" method="GET">
       <input type="hidden" value="${primo}" name="primo"/>
       <input type="hidden" value="${charlist}" name="clist"/>
       <input type="hidden" value="${weaplist}" name="wlist"/>
       <input type="hidden" value="${eval}" name="value"/>
       <input type="hidden" value="${sessionScope.acc.username}" name="acc"/>
-      <input style="position:absolute;margin-left:25%;margin-top:-5%;padding:10px;" onclick="confirm('Confirm!')" type="submit" value="Sell this Account"/>
+      <input type="hidden" value="${acc_info}" name="acc_info"/>
+      <input class="sellbut" style="margin-left:10%;clip-path: polygon(0 0, 100% 0%, 75% 100%, 0% 100%);width:300px;text-align:left;border:1px solid black;height:50px;color:white;background-color:blue;" onclick="confirm('Confirm!')" type="${dis}" value="Sell this Account"/>
   </form>
+  <style>
+      input.sellbut:hover {
+              background-color:#000080;
+      }
+      input.auctionbut:hover {
+              background-color:green;
+      }
+  </style>
   <form action="startauction" method="GET">
+      <input class="auctionbut" style="position:absolute;margin-top:-54px;margin-left:20%;clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 0% 100%);border:1px solid black;width:300px;text-align:right;height:50px;color:white;background-color:#00FF00;" onclick="confirm('Confirm!')" type="${dis}" value="Start an Auction"/>
       <input type="hidden" value="${primo}" name="primo"/>
       <input type="hidden" value="${charlist}" name="clist"/>
       <input type="hidden" value="${weaplist}" name="wlist"/>
       <input type="hidden" value="${eval}" name="value"/>
       <input type="hidden" value="${sessionScope.acc.username}" name="acc"/>
-      <input style="position:absolute;margin-left:45%;margin-top:-5%;padding:10px;" onclick="confirm('Confirm!')" type="submit" value="Start an Auction on this account"/>
+      <input type="hidden" value="${acc_info}" name="acc_info"/>
   </form>
+  </div>
   </body> 
     <script>
   function myAccFunc() {

@@ -134,8 +134,11 @@
                 <p class="gis-left" style="margin-left:30%; color:white">WALLET SYSTEM</p>
             </header>
             <div class="gis-link">
-                <a class="link" href="transactionservlet">Transaction History</a>
-                <a class="link" href="recharge.jsp">Recharge</a>
+                <form action="transactionservlet" method="GET">
+                    <input type="hidden" value="${sessionScope.acc.username}" name="acc"/>
+                    <input class="link" type="submit" value="Transaction History"/>
+                </form>
+                    <input class="link" style="background-color:red;" type="submit" value="Recharge"/>
                 <a class="link" href="withdraw.jsp">Withdraw</a>
                 <a class="link" href="#">Payment Method</a>
             </div>
@@ -144,8 +147,8 @@
                 
             <div class="wallet-info">
                 <form action="rechargeservlet" method="post">
-                    <p>Current Balance: ${list[0].balance}</p>
-                    <input type="hidden" name="walletID" value="${list[0].walletID}"/>
+                    <p>Current Balance: ${wal.balance}</p>
+                    <input type="hidden" name="walletID" value="${wal.walletID}"/>
                     <label for="amount">Amount</label>
                     <input type="text" onchange="check()" id="amount" name="amount" placeholder="Enter money....">
 

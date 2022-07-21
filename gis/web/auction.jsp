@@ -43,9 +43,7 @@
         <input type="hidden" value="${sessionScope.acc.username}" name="acc"/>
         <input type="submit" class="gis-bar-item gis-button" value="SELL ACCOUNT">
     </form>
-    <form action="auctionservlet" method="GET">
         <input type="submit" class="gis-bar-item gis-button" style="color:black; background-color:white" value="AUCTION">
-    </form>
       <form action="walletservlet" method="GET">
           <input type="hidden" value="${sessionScope.acc.username}" name="acc"/>
         <input type="submit" class="gis-bar-item gis-button" value="WALLET">
@@ -109,11 +107,11 @@
             background-color:white;
         }
     </style>
-    
+
     <table>
             <thead>
                 <tr>
-                    <th>Auction No.</th>
+                    <th>Auction No.${i},${k}</th>
                     <th>Account</th>
                     <th>Initial Price</th>
                     <th>Current Price</th>

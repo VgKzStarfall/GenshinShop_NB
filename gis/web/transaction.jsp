@@ -127,8 +127,12 @@
 
     </style>
     <div class="gis-link">
-        <a class="link" href="transaction.jsp">Transaction History</a>
-        <a class="link" href="recharge.jsp">Recharge</a>
+        <input class="link" style="background-color:red;" type="submit" value="Transaction History"/>
+        <form action="rechargeservlet" method="GET">
+                    <input type="hidden" value="${sessionScope.acc.username}" name="acc"/>
+                    <input class="link" type="submit" value="Recharge"/>
+        </form>
+                    
         <a class="link" href="withdraw.jsp">Withdraw</a>
         <a class="link" href="#">Payment Method</a>
     </div>
@@ -146,7 +150,7 @@
             </thead>
             <tbody>
                 <input id="text" type="hidden" value=""/>
-                <c:forEach items="${pList}" var="pay"> 
+                <c:forEach items="${list}" var="pay"> 
                     <tr>
                         <td>${pay.paymentID}</td>
                         <td>${pay.walletID}</td>
