@@ -12,6 +12,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 
 /**
  *
@@ -62,9 +63,17 @@ public class SellServlet2 extends HttpServlet {
         int primo = Integer.parseInt(request.getParameter("primo"));
         
         int price= (int)Double.parseDouble(request.getParameter("value"));
+        Product pr=new Product();
+        ArrayList<Product> plist=pr.getListProduct();
+        int prID=Integer.parseInt(plist.get(plist.size()-1).ProductID.replace("acc",""));
+        prID++;
+        String proID="acc"+Integer.toString(prID);
         String acc=request.getParameter("acc");
-        Product p = new Product("product",cc,wr,primo,acc,"acc",price);
-        request.getServletContext().setAttribute("pro", p);
+        String acc_info=request.getParameter("acc_info");
+        Product p = new Product(proID,cc,wr,primo,acc,acc_info,price);
+        int n=p.addProduct(p);
+        request.getServletContext().setAttribute("proid", proID);
+        request.getServletContext().setAttribute("pro", n);
         request.getRequestDispatcher("sellsuccess.jsp").forward(request, response);
     }
 

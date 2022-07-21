@@ -49,6 +49,7 @@ public class StartAuctionServlet extends HttpServlet {
         String cc= request.getParameter("clist");
         String wr= request.getParameter("wlist");
         int primo = Integer.parseInt(request.getParameter("primo"));
+        String acc_info=request.getParameter("acc_info");
         
         int price= (int)Double.parseDouble(request.getParameter("value"));
         String acc=request.getParameter("acc");
@@ -57,15 +58,18 @@ public class StartAuctionServlet extends HttpServlet {
         int num=Integer.parseInt(auclist.get(auclist.size()-1).AuctionID.replaceAll("auc",""));
         num++;
         String aucId="auc"+Integer.toString(num);
-        int num2=Integer.parseInt(auclist.get(auclist.size()-1).ProductID.replaceAll("acc","")); 
-        num2+=1;
+        Product pr= new Product();
+        ArrayList<Product> prlist = pr.getListProduct();
+        int num2=Integer.parseInt(prlist.get(prlist.size()-1).ProductID.replaceAll("acc","")); 
+        num2++;
         String proId="acc"+Integer.toString(num2);
         auc2=auclist.get(auclist.size()-1);
         Auction auc=new Auction(aucId,proId,price,price,acc,auc2.getStartdate());
-        Product p = new Product(proId,cc,wr,primo,acc,"asasddsa",price);
+        Product p = new Product(proId,cc,wr,primo,acc,acc_info,price);
         int k=p.addProduct(p);
         int i=auc.startAuction(auc);
         auclist = auc2.getListAuction();
+        request.getServletContext().setAttribute("acc_info",acc_info);
         request.getServletContext().setAttribute("i",i);
         request.getServletContext().setAttribute("k",k);
         request.getServletContext().setAttribute("list",auclist);

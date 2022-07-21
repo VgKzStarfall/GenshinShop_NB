@@ -12,7 +12,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import Model.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Random;
 
 /**
  *
@@ -98,6 +101,25 @@ public class PaymentServlet extends HttpServlet {
         else {done=0;}
         String up=pr.getAccount_info();
         up=up.replaceAll(" ","");
+        Payment p = new Payment();
+        ArrayList<Payment> payList= p.getListPayment();
+        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//dd/MM/yyyy
+        Date now = new Date();
+        String strDate = sdfDate.format(now);
+        String pID = "PM";
+        int n = 1;
+        while (n > 0) {
+            Random rand = new Random();
+            int upperbound = 9999;
+            int int_random = rand.nextInt(upperbound);
+            pID = pID + String.valueOf(int_random);
+            if (payList.contains(pID)) {
+                n++;
+            } else {
+                break;
+            }
+        }
+        p.paymentCheck(pID, wal.getWalletID(), "Buy", (-pr.price), strDate);
         String username= up.substring(0,up.indexOf("-"));
         String password = up.substring((up.indexOf("-")+1),up.length());
         request.getServletContext().setAttribute("done",done);

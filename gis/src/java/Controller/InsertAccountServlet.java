@@ -5,11 +5,8 @@
  */
 package Controller;
 
-import Model.Payment;
-import Model.Wallet;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,9 +14,9 @@ import jakarta.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author ACER
+ * @author HP
  */
-public class TransactionServlet extends HttpServlet {
+public class InsertAccountServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +35,10 @@ public class TransactionServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TransactionServlet</title>");            
+            out.println("<title>Servlet InsertAccountServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TransactionServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet InsertAccountServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,28 +56,8 @@ public class TransactionServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Payment pay= new Payment();
-        String acc=request.getParameter("acc");
-        Wallet wal=new Wallet();
-        ArrayList<Payment> paylist= new ArrayList<>();
-        ArrayList<Payment> list= pay.getListPayment();
-        ArrayList<Wallet> walist = wal.getListWallet();
-        for (Wallet w:walist) {
-            if (w.getUsername().equals(acc)) {
-                wal=w;
-                break;
-            }
-        }
-        for (Payment p: list) {
-            if (p.getWalletID().equals(wal.getWalletID())) {
-                paylist.add(p);
-            }
-        }
-        int i=0;
-        if (list==null) i=1;
-        request.getServletContext().setAttribute("i",i);
-        request.getServletContext().setAttribute("list", paylist);
-        request.getRequestDispatcher("transaction.jsp").forward(request, response);
+        
+        request.getRequestDispatcher("policy.jsp").forward(request, response);
     }
 
     /**
@@ -94,7 +71,19 @@ public class TransactionServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.getServletContext().setAttribute("primo", request.getParameter("primo"));
+        request.getServletContext().setAttribute("charlist", request.getParameter("clist"));
+         request.getServletContext().setAttribute("weaplist", request.getParameter("wlist"));
+          request.getServletContext().setAttribute("eval", request.getParameter("value"));
+         String username=request.getParameter("uID");
+         String password=request.getParameter("pass");
+         String acc_info=username+"-"+password;
+         request.getServletContext().setAttribute("dis","submit");
+         request.getServletContext().setAttribute("hidden2","hidden");
+        request.getServletContext().setAttribute("hidden","");
+        request.getServletContext().setAttribute("submit","hidden");
+         request.getServletContext().setAttribute("acc_info",acc_info);
+         request.getRequestDispatcher("doneeval.jsp").forward(request, response);
     }
 
     /**

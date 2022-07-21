@@ -66,8 +66,15 @@ public class RechargeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Wallet wal = new Wallet();
+        String acc=request.getParameter("acc");
         ArrayList<Wallet> list = wal.getListWallet();
-        request.getServletContext().setAttribute("list", list);
+        for (Wallet w:list) {
+            if (w.getUsername().equals(acc)) {
+                wal=w;
+                break;
+            }
+        }
+        request.getServletContext().setAttribute("wal", wal);
         request.getRequestDispatcher("recharge.jsp").forward(request, response);
     }
 
@@ -83,12 +90,18 @@ public class RechargeServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String walID = request.getParameter("walletID");
-        System.out.println(walID);
         int amount = Integer.parseInt(request.getParameter("amount"));
         String method = request.getParameter("method");
         // String mssv = s.getMssv();
         Wallet wal = new Wallet();
         Payment pm = new Payment();
+        ArrayList<Wallet> walist = wal.getListWallet();
+        for (Wallet w:walist) {
+            if (w.getWalletID().equals(walID)) {
+                wal=w;
+                break;
+            }
+        }
         ArrayList<Payment> payList = pm.getListPayment();
 //        StudentDAO sDB = new StudentDAO();
         SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//dd/MM/yyyy
@@ -111,7 +124,8 @@ public class RechargeServlet extends HttpServlet {
         System.out.println(pID);
         wal.updateBalance(walID, amount);
         pm.paymentCheck(pID, walID, method, amount, strDate);
-        response.sendRedirect("rechargeservlet");
+        request.getServletContext().setAttribute("wal",wal);
+        request.getRequestDispatcher("recharge.jsp").forward(request,response);
     }
 
     /**

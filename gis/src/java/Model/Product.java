@@ -93,7 +93,7 @@ public class Product {
         PreparedStatement ps=null;
         ResultSet rs=null;
         try {
-            String query = "select * from dbo.Product";
+            String query = "select * from dbo.Product order by LEN(ProductID),ProductID";
             conn = new Database().getConnection();
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();

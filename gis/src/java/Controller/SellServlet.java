@@ -140,6 +140,9 @@ public class SellServlet extends HttpServlet {
             wrl.add(new WeapRef(weap[j],Integer.parseInt(ref[j])));
         }
         eval = Math.round(eval);
+        request.getServletContext().setAttribute("dis","hidden");
+        request.getServletContext().setAttribute("hidden","hidden");
+        request.getServletContext().setAttribute("submit","submit");
         request.getServletContext().setAttribute("charlist",charlist);
         request.getServletContext().setAttribute("clist",ccl);
         request.getServletContext().setAttribute("weaplist",weaplist);
