@@ -19,26 +19,27 @@
 <style>
 body {font-family: Arial, Helvetica, sans-serif;}
 
-input[type=text], input[type=password] {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-}
+  input[type=text], input[type=password] {
+          width: 100%;
+          padding: 12px 20px;
+          margin: 8px 0;
+          display: inline-block;
+          border: 1px solid #ccc;
+          box-sizing: border-box;
+      }
 
-button:hover {
-  opacity: 0.8;
-}
+       button:hover {
+        opacity: 0.8;
+        }
 
-.cancelbtn {
-  width: auto;
-  padding: 10px 18px;
-  background-color: #f44336;
-}
+       .cancelbtn {
+        width: auto;
+        padding: 10px 18px;
+        background-color: #f44336;
+        margin-left: 200px;
+      }       
 
-.imgcontainer {
+      .imgcontainer {
   text-align: center;
   margin: 24px 0 12px 0;
   position: relative;
@@ -51,13 +52,14 @@ img.avatar {
 
 .container {
   padding-top:10%;
-  padding-left:16px;
-  padding-right:16px;
+  padding-left:100px;
+  padding-right:100px;
   padding-bottom:10%;
-  background-image: url(media/genshin-impact-loading-screen.gif);
   background-repeat:no-repeat;
-  background-size:cover;
-  background-position:bottom;
+  background-size:50px;
+ 
+  
+  
 }
 
 .container2 {
@@ -86,7 +88,7 @@ span.psw {
   background-color: #fefefe;
   margin: 5% auto 15% auto;
   border: 1px solid #888;
-  width: 80%;
+  width: 30%;
 }
 
 .close {
@@ -189,9 +191,47 @@ body,h1,h2,h3,h4,h5,h6,.gis-wide {font-family: "Montserrat", sans-serif;}
   
   <!-- Top header -->
   <header class="gis-container gis-xlarge">
-      <button class="login" style="font-size: 70%">${sessionScope.acc.username}</button>
-<div id="id01" class="modal">  
- 
+      <button class="login" style="font-size: 70%" onclick="document.getElementById('id01').style.display='block'">${sessionScope.acc.username}</button>
+    <div id="id01" class="modal">  
+        <div class="modal-content animate" >
+    <div class="imgcontainer">
+        <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+    </div>
+
+    <div class="container">
+      
+      
+        <label><b>USER PROFILE</b><br></label>
+      <label><b>Hello ${sessionScope.acc.username} !!</b></label>
+      
+        
+       <button onclick="document.getElementById('id02').style.display='block'">Change password</button>
+   
+    </div>
+
+    
+  </div>
+</div>
+    <div id="id02" class="modal">  
+  <form class="modal-content animate" action="changepass" method="post">
+    <div class="imgcontainer">
+        <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
+    </div>
+
+    <div class="container">
+      <input type="hidden" name="user" id="user" value="${sessionScope.acc.username}">
+      <label for="opsw"><b>Old password</b></label>
+      <input type="text" placeholder="Enter old password" name="opsw" id="oldpass" required value="">
+
+      <label for="psw"><b>New Password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" id="password" required value="">
+        
+      <button type="submit">Change</button>
+      
+    </div>
+
+    
+  </form>
 </div>
 
 <script>
