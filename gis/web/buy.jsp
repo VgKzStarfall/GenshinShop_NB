@@ -91,9 +91,9 @@
   <!-- Top header -->
   <header class="gis-container gis-xlarge">
     <p class="gis-left" style="margin-left:27%; color:white">GENSHIN IMPACT SHOP</p>
-    <button id="next" style="float: right; margin-top: 100px; margin-right: 20px" onclick="page(${vip},${page}, ${endpage})">Next</button>
+    <button id="next" style="float: right;position:relative;z-index:10; top: 750px;right:600px;" onclick="page(${vip},${page}, ${endpage})">Next</button>
     
-    <button id="back" style="float: left; margin-top: 100px; margin-left:  20px;" onclick="backpage(${vip},${page})" value="${page}">Back</button>
+    <button id="back" style="float: left;position:relative;z-index:10; top: 750px;right:600px;" onclick="backpage(${vip},${page})" value="${page}">Back</button>
   </header>
   <script>
       function page(vip , count, endpage ) {
