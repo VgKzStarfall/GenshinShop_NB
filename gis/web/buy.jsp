@@ -91,8 +91,56 @@
   <!-- Top header -->
   <header class="gis-container gis-xlarge">
     <p class="gis-left" style="margin-left:27%; color:white">GENSHIN IMPACT SHOP</p>
-
+    <button id="next" style="float: right; margin-top: 100px; margin-right: 20px" onclick="page(${vip},${page}, ${endpage})">Next</button>
+    
+    <button id="back" style="float: left; margin-top: 100px; margin-left:  20px;" onclick="backpage(${vip},${page})" value="${page}">Back</button>
   </header>
+  <script>
+      function page(vip , count, endpage ) {
+         
+           count++;
+           if(vip === 1) {
+               if(count >= endpage) {
+                   window.location.href = 'buy?vip=' + vip +'&page=' + endpage;
+               } else {
+                   window.location.href = 'buy?vip=' + vip +'&page=' + count;
+               }
+               
+           } else {
+               if(count == endpage) {
+                   window.location.href = 'buy?vip=' + vip +'&page=' + endpage;
+               } else {
+                   window.location.href = 'buy?vip=' + 0 +'&page=' + count;
+               }
+           }
+          
+      }
+      function backpage(vip, count) {
+          
+            count--;
+            
+            if(vip === 1) {
+               if(count === 0) {
+                window.location.href = 'buy?vip=' + vip +'&page=' + 1;
+                } else {
+                     window.location.href = 'buy?vip=' + vip +'&page=' + count;
+                }
+              
+           } else {
+               if(count === 0) {
+                window.location.href = 'buy?vip=' + vip +'&page=' + 1;
+                } else {
+                     window.location.href = 'buy?vip=' + vip +'&page=' + count;
+                }
+              
+               
+           }
+          
+         
+           
+           
+      }
+  </script>
   <style>
       div.body {
           border-radius:20px;
@@ -297,20 +345,11 @@ span.psw {
         
   </c:forEach>
     <br>
-   <%-- <c:forEach var="i" begin="1" end="${end}">
-        <c:if test="${vip == 0}" >
-            <a href="buy?page=${i}&vip=0" style="float: bottom; font-size: 19px; color: white; text-decoration: none
-               ; position: relative; top: 200px; left: 700px">${i}</a>
-        </c:if>
-        <c:if test="${vip == 1}" >
-            <a href="buy?page=${i}&vip=1" style="float: bottom; font-size: 19px; color: white; text-decoration: none
-               ; position: relative; top: 200px; left: 700px">${i}</a>
-        </c:if>
-            
-    </c:forEach>
-    --%>
+  
+    
    
   </body>
+  
     <script>
   function myAccFunc() {
   var x = document.getElementById("demoAcc");
