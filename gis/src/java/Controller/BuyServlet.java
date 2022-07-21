@@ -76,7 +76,7 @@ public class BuyServlet extends HttpServlet {
             }
         }
         for(Product suglist : proList) {
-            if(suglist.getCharlist().contains("kazuha")) {
+            if(suglist.getCharlist().contains("a")) {
                 suggestList.add(suglist);
             }
         }
@@ -106,7 +106,7 @@ public class BuyServlet extends HttpServlet {
             endpage = count/4;
              if(endpage%4!=0) endpage++;
             request.setAttribute("vip", vip);
-            request.setAttribute("list", suggestList);
+            request.setAttribute("list", suggestList1);
             request.setAttribute("endpage", endpage);
             request.setAttribute("page", page);
         }
