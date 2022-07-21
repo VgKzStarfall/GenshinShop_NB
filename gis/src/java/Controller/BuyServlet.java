@@ -50,6 +50,7 @@ public class BuyServlet extends HttpServlet {
         String vip = request.getParameter("vip");
         int vjp = Integer.parseInt(vip);
         String index = request.getParameter("page");
+        
         if(index == null) {
             index = "1";
         }
@@ -59,10 +60,19 @@ public class BuyServlet extends HttpServlet {
         ArrayList<Product> proList = pro.getListProduct();
         ArrayList<Product> vippro = new ArrayList<>();
         ArrayList<Product> suggestList = new ArrayList<>();
+        ArrayList<Product> vippro1 = new ArrayList<>();
+        ArrayList<Product> suggestList1 = new ArrayList<>();
         
         for(Product viplist : proList) {
             if(viplist.getPrice()>=500) {
                 vippro.add(viplist);
+            }
+        }
+        for (int i = (page-1)*4; i < page*4; i++) {
+            if(i >= vippro.size()) {
+                break;
+            } else {
+                vippro1.add(vippro.get(i));
             }
         }
         for(Product suglist : proList) {
@@ -70,23 +80,42 @@ public class BuyServlet extends HttpServlet {
                 suggestList.add(suglist);
             }
         }
+        for (int i = (page-1)*4; i < page*4; i++) {
+            if(i >= suggestList.size()) {
+                break;
+            } else {
+                suggestList1.add(suggestList.get(i));
+            }
+        }
+        
+        int count;
+        int endpage;
         
         if(vjp == 1) {
+            count = vippro.size();
+            endpage = count/4;
+            if(endpage%4!=0) endpage++;
             request.setAttribute("vip", vip);
-            request.setAttribute("list", vippro);
+            request.setAttribute("list", vippro1);
+            request.setAttribute("endpage", endpage);
+            request.setAttribute("page", page);
+            
             
         } else {
+            count = suggestList.size();
+            endpage = count/4;
+             if(endpage%4!=0) endpage++;
             request.setAttribute("vip", vip);
             request.setAttribute("list", suggestList);
+            request.setAttribute("endpage", endpage);
+            request.setAttribute("page", page);
         }
         
-        
-        int count = pro.getTotalProduct();
-        int endpage = count/4;
-        if(count%3!=0) {
-            endpage++;
-        }
-        request.setAttribute("end", endpage);
+      
+     
+         
+     
+       
         
         
         request.getRequestDispatcher("buy.jsp").forward(request, response);
@@ -105,7 +134,6 @@ public class BuyServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
     /**
      * Returns a short description of the servlet.
      *
