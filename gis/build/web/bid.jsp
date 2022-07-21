@@ -5,6 +5,7 @@
 --%>
 <%@taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -90,20 +91,37 @@
     <h1 style="padding-left:25%">Account ${pro.productID} Info</h1>
     <h2 style="padding-left:15%">Char list:</h2>
     <a style="padding-left:20%"></a>
-    <c:forEach items="${list}" var="p">
-        <a>${p}</a>
-    </c:forEach>
+    <%
+        String clist = (String)request.getAttribute("list");
+        String wlist = (String)request.getAttribute("list2");
+        String[] charlist= clist.split(",");
+        String[] weaplist= wlist.split(",");
+        for (int i=0;i<charlist.length;i++) {
+            String url="media/"+charlist[i].substring(0,charlist[i].length()-1)+".jpg";
+            int cons= Integer.parseInt(charlist[i].substring(charlist[i].length()-1));
+            %>
+            <img style="" class="char" src="<%=url%>" width="15%"/>
+            <a> Constellation: <%=cons%> </a>
+            <%
+        }
+    %>
     <h2 style="padding-left:15%">Weapon list:</h2>
         <a style="padding-left:20%"></a>
-    <c:forEach items="${list2}" var="p">
-        <a>${p}</a>
-    </c:forEach>
+    <% for (int i=0;i<weaplist.length;i++) {
+        String url2="media/"+weaplist[i].substring(0,weaplist[i].length()-1)+".jpg";
+        int ref= Integer.parseInt(weaplist[i].substring(weaplist[i].length()-1));
+        %>
+        <img style="" class="weap" src="<%=url2%>" width="15%"/>
+        <a> Refinement: <%=ref%> </a>
+        <%
+    }%>
         <h3 style="padding-left:15%"> Current bid for this account: ${auc.currentPrice}</h3>
         <form class="a" action="startauction" method="POST">
+            <input type="hidden" value="${sessionScope.acc.username}" name="acc"/>
             <input id="bal" type="hidden" value="${wal.balance}" name=""/>
             <input id="price" type="hidden" value="${pro.price}" name=""/>
             <input type="hidden" value="${pro.productID}" name="proID"/>
-            Bid for this account: <input type="text" value="0" name="bid"/>
+            Bid for this account: <input id="bid" type="text" value="0" name="bid"/>
             <input type="submit" onclick="check()" value="CONFIRM"/>
         </form>
     </div>
@@ -119,10 +137,15 @@
 }
 
 function check() {
-    var x=document.getElementById("bal");
-    var y=document.getElementById("price");
+    var x=document.getElementById("bal").value;
+    var y=document.getElementById("price").value;
+    var z=document.getElementById("bid").value;
     if (x<y) {
         alert("You don't have enough money");
+        event.preventDefault();
+    }
+    if (y>z) {
+        alert("You must input more money than current bid");
         event.preventDefault();
     }
 }   

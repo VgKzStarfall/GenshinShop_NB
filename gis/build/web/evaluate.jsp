@@ -38,10 +38,7 @@
       <a href="buy?vip=1" class="gis-bar-item gis-button">VIP ACCOUNTS</a>
       
     </div>
-      <form action="sellservlet" method="GET">
-        <input type="hidden" value="${sessionScope.acc.username}" name="acc"/>
-        <input type="submit" class="gis-bar-item gis-button" value="SELL ACCOUNT">
-    </form>
+      <a style="background-color:white;color:black;" class="gis-bar-item gis-button">SELL ACCOUNT</a>
     <form action="auctionservlet" method="GET">
         <input type="hidden" value="${sessionScope.acc.username}" name="acc"/>
         <input type="submit" class="gis-bar-item gis-button" value="AUCTION">
@@ -104,18 +101,34 @@
   <body>
       <div class="body">
           <form action="middle" method="GET">
-              <input class="input" style="position:absolute;margin-left:20%;" type="${input}" value="Input Information"/>
+              <input class="input" style="position:absolute;margin-left:20%;" type="${input}" value="Input Characters"/>
+          </form>
+          <form action="middle2" method="GET">
+              <input class="input" style="position:absolute;margin-left:20%;margin-top:5%;padding-left:30px;padding-right:17px;" type="${input2}" value="Input Weapon"/>
           </form>
           <form action="sellservlet" method="POST">
               Enter Character list: <a ${hidden} style="color:red;">Information inputted.</a><BR><BR>
-              <input type="hidden" name="charlist" value="${list}"/>
-        <!--              Enter Weapon list:   <input style="margin-left:12px;width:500px;" type="text" name="weaplist"><BR>-->
-              Enter Primogems:     <input style="margin-left:13px;width:500px;" type="text" name="primos" value="0"><BR>
-              <input class="eval" style="margin-left:32%;margin-top:20%;" type="submit" value="EVALUATE"/>
+              <input id="charlist" type="hidden" name="charlist" value="${charlist}"/>
+              Enter Weapon list:   <a ${hidden2} style="color:red;">Information inputted.</a><BR><BR>
+              <input id="weaplist" type="hidden" name="weaplist" value="${weaplist}"/>
+              Enter Primogems:     <input id="primos" style="margin-left:13px;width:500px;" type="text" name="primos" value="0"><BR>
+              <input onclick="check()" class="eval" style="margin-left:32%;margin-top:20%;" type="submit" value="EVALUATE"/>
           </form>
       </div>
   </body>
     <script>
+        function check() {
+            var x = document.getElementById("charlist").value;
+            var y = document.getElementById("weaplist").value;
+            if (x==="") {
+                alert("You must input characters in your account!");
+                event.preventDefault();
+            }
+            if (y==="") {
+                alert("You must input weapons in your account!");
+                event.preventDefault();
+            }
+        }
   function myAccFunc() {
   var x = document.getElementById("demoAcc");
   if (x.className.indexOf("gis-show") == -1) {

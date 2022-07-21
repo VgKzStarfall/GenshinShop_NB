@@ -48,6 +48,14 @@
         <servlet-name>InsertAccountServlet</servlet-name>
         <servlet-class>Controller.InsertAccountServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SuccessServlet</servlet-name>
+        <servlet-class>Controller.SuccessServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>WithdrawServlet</servlet-name>
+        <servlet-class>Controller.WithdrawServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/loginservlet</url-pattern>
@@ -111,6 +119,14 @@
     <servlet-mapping>
         <servlet-name>InsertAccountServlet</servlet-name>
         <url-pattern>/insertaccount</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SuccessServlet</servlet-name>
+        <url-pattern>/success</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>WithdrawServlet</servlet-name>
+        <url-pattern>/withdrawservlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

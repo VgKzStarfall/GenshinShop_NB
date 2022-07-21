@@ -102,6 +102,7 @@ public class Wallet {
         } catch (Exception e) {
         }
     }
+    
     public void decreaseBalance(String id, int value) {
         Connection conn = null;
         PreparedStatement ps = null;

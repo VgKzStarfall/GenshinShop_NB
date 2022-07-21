@@ -143,7 +143,7 @@
             
                 
             <div class="wallet-info">
-                <form action="rechargeservlet" method="post">
+                <form action="withdrawservlet" method="post">
                     <p>Current Balance: ${list[i].balance}</p>
                     <input type="hidden" name="walletID" value="${list[i].walletID}"/>
                     <label for="amount">Amount</label>
@@ -154,7 +154,6 @@
                     <select id="method" name="method">
                         <option value="all" selected="true"></option>
                         <option value="momo">Momo</option>
-                        <option value="paypal">Paypal</option>
                         <option value="visa">Visa/Credit card</option>
                     </select>
                     <input id="sub" class="sub" type="submit" value="Confirm">

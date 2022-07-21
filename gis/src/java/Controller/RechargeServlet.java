@@ -5,11 +5,14 @@
  */
 package Controller;
 
+import Model.Account;
 import Model.Payment;
 import Model.Wallet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DateFormat;
+import java.util.Calendar;
+import java.util.Formatter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -20,6 +23,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  *
@@ -66,15 +71,8 @@ public class RechargeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Wallet wal = new Wallet();
-        String acc=request.getParameter("acc");
         ArrayList<Wallet> list = wal.getListWallet();
-        for (Wallet w:list) {
-            if (w.getUsername().equals(acc)) {
-                wal=w;
-                break;
-            }
-        }
-        request.getServletContext().setAttribute("wal", wal);
+        request.getServletContext().setAttribute("list", list);
         request.getRequestDispatcher("recharge.jsp").forward(request, response);
     }
 
@@ -89,43 +87,32 @@ public class RechargeServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String walID = request.getParameter("walletID");
+//        String walID = request.getParameter("walletID");
+//        System.out.println(walID);
         int amount = Integer.parseInt(request.getParameter("amount"));
         String method = request.getParameter("method");
         // String mssv = s.getMssv();
-        Wallet wal = new Wallet();
-        Payment pm = new Payment();
-        ArrayList<Wallet> walist = wal.getListWallet();
-        for (Wallet w:walist) {
-            if (w.getWalletID().equals(walID)) {
-                wal=w;
+//        Wallet wal = new Wallet();
+//        HttpSession sess = request.getSession();
+//        Account acc = (Account) sess.getAttribute("acc");
+//        String username = acc.getUsername();
+//        Wallet walInfo = wal.getWalletByUser(username);
+//        System.out.println(walInfo);
+//            sess.setAttribute("infoW", walInfo);
+        HttpSession sess = request.getSession();
+        switch(method) {
+            case "momo":
+                sess.setAttribute("value", amount);
+                sess.setAttribute("method", method);
+                request.getRequestDispatcher("momomethod.jsp").forward(request, response);
                 break;
-            }
-        }
-        ArrayList<Payment> payList = pm.getListPayment();
-//        StudentDAO sDB = new StudentDAO();
-        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//dd/MM/yyyy
-        Date now = new Date();
-        String strDate = sdfDate.format(now);
-        String pID = "PM";
-        int n = 1;
-        while (n > 0) {
-            Random rand = new Random();
-            int upperbound = 9999;
-            int int_random = rand.nextInt(upperbound);
-            pID = pID + String.valueOf(int_random);
-            if (payList.contains(pID)) {
-                n++;
-            } else {
+            case "paypal":
+                sess.setAttribute("value", amount);
+                sess.setAttribute("method", method);
+                request.getRequestDispatcher("paypalmethod.jsp").forward(request, response);
                 break;
-            }
         }
-        System.out.println(strDate);
-        System.out.println(pID);
-        wal.updateBalance(walID, amount);
-        pm.paymentCheck(pID, walID, method, amount, strDate);
-        request.getServletContext().setAttribute("wal",wal);
-        request.getRequestDispatcher("recharge.jsp").forward(request,response);
+//        response.sendRedirect("rechargeservlet");
     }
 
     /**
